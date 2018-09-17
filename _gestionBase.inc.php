@@ -1,24 +1,32 @@
-<?
+<?php
 
 // FONCTIONS DE CONNEXION
 
 function connect()
 {
-   $hote="localhost";
-   $login="festival";
-   $mdp="secret";
-   return mysql_connect($hote, $login, $mdp);
+	try
+	{ 
+	$bd = 'festival';
+	$hote = 'localhost';
+	$login = 'root';
+	$mdp = '';
+	$port='3306';
+	$dns = 'mysql:host='.$hote .';dbname='.$bd.';port='.$port;
+	$connexion = new PDO( $dns, $login, $mdp );
+	$connexion -> setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+	}
+	catch(PDOException $e){die('Erreur : '.$e->getMessage());}
+   return $connexion;
 }
+	//$connexion=connect();
+	//var_dump($connexion) ;
 
 function selectBase($connexion)
 {
-   $bd="festival";
-   $query="SET CHARACTER SET utf8";
-   // Modification du jeu de caractères de la connexion
-   $res=mysql_query($query, $connexion); 
-   $ok=mysql_select_db($bd, $connexion);
-   return $ok;
+  $connexion->query('SET NAMES UTF8'); 
+   return $connexion;
 }
+
 
 // FONCTIONS DE GESTION DES ÉTABLISSEMENTS
 
@@ -45,14 +53,15 @@ function obtenirReqEtablissementsAyantChambresAttribuées()
 function obtenirDetailEtablissement($connexion, $id)
 {
    $req="select * from Etablissement where id='$id'";
-   $rsEtab=mysql_query($req, $connexion);
-   return mysql_fetch_array($rsEtab);
+   $rsEtab=$connexion->query($req);
+   $rsEtab=$rsEtab->fetch();
+   return $rsEtab;
 }
 
 function supprimerEtablissement($connexion, $id)
 {
    $req="delete from Etablissement where id='$id'";
-   mysql_query($req, $connexion);
+  $connexion->query($req);
 }
  
 function modifierEtablissement($connexion, $id, $nom, $adresseRue, $codePostal, 
@@ -74,7 +83,7 @@ function modifierEtablissement($connexion, $id, $nom, $adresseRue, $codePostal,
          '$nomResponsable',prenomResponsable='$prenomResponsable',
          nombreChambresOffertes='$nombreChambresOffertes' where id='$id'";
    
-   mysql_query($req, $connexion);
+   $connexion->query($req);
 }
 
 function creerEtablissement($connexion, $id, $nom, $adresseRue, $codePostal, 
@@ -94,15 +103,16 @@ function creerEtablissement($connexion, $id, $nom, $adresseRue, $codePostal,
          '$civiliteResponsable', '$nomResponsable', '$prenomResponsable',
          '$nombreChambresOffertes')";
    
-   mysql_query($req, $connexion);
+    $connexion->query($req);
 }
 
 
 function estUnIdEtablissement($connexion, $id)
 {
    $req="select * from Etablissement where id='$id'";
-   $rsEtab=mysql_query($req, $connexion);
-   return mysql_fetch_array($rsEtab);
+   $rsEtab=$connexion->query($req);
+   $rsEtab= $rsEtab->fetch();
+   return $rsEtab;
 }
 
 function estUnNomEtablissement($connexion, $mode, $id, $nom)

@@ -1,4 +1,4 @@
-<?
+<?php
 
 include("_debut.inc.php");
 include("_gestionBase.inc.php"); 
@@ -32,8 +32,8 @@ class='tabNonQuadrille'>
    </tr>";
      
    $req=obtenirReqEtablissements();
-   $rsEtab=mysql_query($req, $connexion);
-   $lgEtab=mysql_fetch_array($rsEtab);
+   $rsEtab=$connexion->query($req);
+   $lgEtab=$rsEtab->fetch();
    // BOUCLE SUR LES ÉTABLISSEMENTS
    while ($lgEtab!=FALSE)
    {
