@@ -1,4 +1,4 @@
-<?
+<?php
 
 include("_debut.inc.php");
 include("_gestionBase.inc.php"); 
@@ -36,10 +36,11 @@ if ($nbEtab!=0)
    // POUR CHAQUE ÉTABLISSEMENT : AFFICHAGE D'UN TABLEAU COMPORTANT 2 LIGNES 
    // D'EN-TÊTE ET LE DÉTAIL DES ATTRIBUTIONS
    $req=obtenirReqEtablissementsAyantChambresAttribuées();
-   $rsEtab=mysql_query($req, $connexion);
-   $lgEtab=mysql_fetch_array($rsEtab);
+   $rsEtab=$connexion->query($req);
+   $rsEtab->execute();
+   $lgEtab=$rsEtab->fetchall();
    // BOUCLE SUR LES ÉTABLISSEMENTS AYANT DÉJÀ DES CHAMBRES ATTRIBUÉES
-   while($lgEtab!=FALSE)
+   foreach($lgEtab as $lgEtab)
    {
       $idEtab=$lgEtab['id'];
       $nomEtab=$lgEtab['nom'];
@@ -72,11 +73,12 @@ if ($nbEtab!=0)
       // AFFICHAGE DU DÉTAIL DES ATTRIBUTIONS : UNE LIGNE PAR GROUPE AFFECTÉ 
       // DANS L'ÉTABLISSEMENT       
       $req=obtenirReqGroupesEtab($idEtab);
-      $rsGroupe=mysql_query($req, $connexion);
-      $lgGroupe=mysql_fetch_array($rsGroupe);
+      $rsGroupe=$connexion->query($req);
+	  $rsGroupe->execute();
+      $lgGroupe=$rsGroupe->fetchall();
                
       // BOUCLE SUR LES GROUPES (CHAQUE GROUPE EST AFFICHÉ EN LIGNE)
-      while($lgGroupe!=FALSE)
+     foreach($lgGroupe as $lgGroupe)
       {
          $idGroupe=$lgGroupe['id'];
          $nomGroupe=$lgGroupe['nom'];
@@ -89,12 +91,12 @@ if ($nbEtab!=0)
          echo "
             <td width='35%' align='left'>$nbOccupGroupe</td>
          </tr>";
-         $lgGroupe=mysql_fetch_array($rsGroupe);
+       //  $lgGroupe=mysql_fetch_array($rsGroupe);
       } // Fin de la boucle sur les groupes
       
       echo "
       </table><br>";
-      $lgEtab=mysql_fetch_array($rsEtab);
+     // $lgEtab=mysql_fetch_array($rsEtab);
    } // Fin de la boucle sur les établissements
 }
 

@@ -35,7 +35,6 @@ class='tabNonQuadrille'>
    $rsEtab=$connexion->query($req);
    $rsEtab->execute();
    $rsEtab=$rsEtab->fetchall();
-   //print_r($rsEtab);
    $lgEtab=$rsEtab;
 
    // BOUCLE SUR LES ÉTABLISSEMENTS
