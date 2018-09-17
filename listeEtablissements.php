@@ -33,9 +33,13 @@ class='tabNonQuadrille'>
      
    $req=obtenirReqEtablissements();
    $rsEtab=$connexion->query($req);
-   $lgEtab=$rsEtab->fetch();
+   $rsEtab->execute();
+   $rsEtab=$rsEtab->fetchall();
+   //print_r($rsEtab);
+   $lgEtab=$rsEtab;
+
    // BOUCLE SUR LES ÉTABLISSEMENTS
-   while ($lgEtab!=FALSE)
+     foreach($lgEtab as $lgEtab)
    {
       $id=$lgEtab['id'];
       $nom=$lgEtab['nom'];
@@ -67,7 +71,7 @@ class='tabNonQuadrille'>
 			}
 			echo "
       </tr>";
-      $lgEtab=mysql_fetch_array($rsEtab);
+    
    }   
    echo "
    <tr class='ligneTabNonQuad'>
