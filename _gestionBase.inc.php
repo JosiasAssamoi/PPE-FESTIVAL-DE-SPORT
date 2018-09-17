@@ -182,7 +182,7 @@ function obtenirNomGroupe($connexion, $id)
 {
    $req="select nom from Groupe where id='$id'";
    $rsGroupe=$connexion->query($req);
-   $rsGroupe=$connexion->execute();
+   $rsGroupe->execute();
    
    
    $lgGroupe=$rsGroupe->fetch();
@@ -219,7 +219,7 @@ function modifierAttribChamb($connexion, $idEtab, $idGroupe, $nbChambres)
    $req="select count(*) as nombreAttribGroupe from Attribution where idEtab=
         '$idEtab' and idGroupe='$idGroupe'";
    $rsAttrib=$connexion->query($req);
-   $rsAttrib=$connexion->execute();
+   $rsAttrib->execute();
    $rsAttrib=$rsAttrib->fetch();
    $lgAttrib=$rsAttrib;
    if ($nbChambres==0)

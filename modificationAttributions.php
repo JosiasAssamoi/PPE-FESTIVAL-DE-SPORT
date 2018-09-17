@@ -62,8 +62,10 @@ class='tabQuadrille'>";
       <td>&nbsp;</td>";
       
    $req=obtenirReqEtablissementsOffrantChambres();
-   $rsEtab=mysql_query($req, $connexion);
-   $lgEtab=mysql_fetch_array($rsEtab);
+   $rsEtab= $connexion->query($req);
+   $rsEtab->execute();
+
+   $lgEtab=$rsEtab->fetch();
 
    // Boucle sur les établissements (pour afficher le nom de l'établissement et 
    // le nombre de chambres encore disponibles)
@@ -79,7 +81,7 @@ class='tabQuadrille'>";
       echo "
       <td valign='top' width='$pourcCol%'><i>Disponibilités : $nbChLib </i> <br>
       $nom </td>";
-      $lgEtab=mysql_fetch_array($rsEtab);
+      $lgEtab=$rsEtab->fetch();
    }
    echo "
    </tr>"; 
@@ -88,8 +90,9 @@ class='tabQuadrille'>";
    // CHAMBRES ATTRIBUÉES ET LES LIENS POUR EFFECTUER OU MODIFIER LES ATTRIBUTIONS
          
    $req=obtenirReqIdNomGroupesAHeberger();
-   $rsGroupe=mysql_query($req, $connexion);
-   $lgGroupe=mysql_fetch_array($rsGroupe);
+   $rsGroupe=$connexion->query($req);
+   $rsGroupe->execute();
+   $lgGroupe=$rsGroupe->fetch();
          
    // BOUCLE SUR LES GROUPES À HÉBERGER 
    while ($lgGroupe!=FALSE)
@@ -100,8 +103,9 @@ class='tabQuadrille'>";
       <tr class='ligneTabQuad'>
          <td width='25%'>$nom</td>";
       $req=obtenirReqEtablissementsOffrantChambres();
-      $rsEtab=mysql_query($req, $connexion);
-      $lgEtab=mysql_fetch_array($rsEtab);
+      $rsEtab=$connexion->query($req);
+	  $rsEtab->execute();
+      $lgEtab=$rsEtab->fetch();
            
       // BOUCLE SUR LES ÉTABLISSEMENTS
       while ($lgEtab!=FALSE)
@@ -148,9 +152,9 @@ class='tabQuadrille'>";
                echo "<td class='reserveSiLien'>&nbsp;</td>";
             }
          }    
-         $lgEtab=mysql_fetch_array($rsEtab);
+         $lgEtab=$rsEtab->fetch();
       } // Fin de la boucle sur les établissements    
-      $lgGroupe=mysql_fetch_array($rsGroupe);  
+      $lgGroupe=$rsGroupe->fetch();  
    } // Fin de la boucle sur les groupes à héberger
 echo "
 </table>"; // Fin du tableau principal
