@@ -9,7 +9,7 @@ function connect()
 	$bd = 'festival';
 	$hote = 'localhost';
 	$login = 'root';
-	$mdp = '';
+	$mdp = 'root';
 	$port='3306';
 	$dns = 'mysql:host='.$hote .';dbname='.$bd.';port='.$port;
 	$connexion = new PDO( $dns, $login, $mdp );

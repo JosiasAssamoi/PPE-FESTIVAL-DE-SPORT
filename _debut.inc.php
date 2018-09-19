@@ -1,39 +1,36 @@
-<?php
-
-echo '
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
-"http://www.w3.org/TR/html4/loose.dtd">
-<!-- TITRE ET MENUS -->
+<!doctype html>
 <html lang="fr">
-<head>
-<title>Festival</title>
-<meta http-equiv="Content-Language" content="fr">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link href="css/cssGeneral.css" rel="stylesheet" type="text/css">
-</head>
-<body class="basePage">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="ppe">
+    <meta name="author" content="alexandre">
 
-<!--  Tableau contenant le titre -->
-<table width="100%" cellpadding="0" cellspacing="0">
-   <tr> 
-      <td class="titre">Festival Folklores du Monde <br>
-      <span id="texteNiveau2" class="texteNiveau2">
-      H&eacute;bergement des groupes</span><br>&nbsp;
-      </td>
-   </tr>
-</table>
+    <title>Sport</title>
 
-<!--  Tableau contenant les menus -->
-<table width="80%" cellpadding="0" cellspacing="0" class="tabMenu" align="center">
-   <tr>
-      <td class="menu"><a href="index.php">Accueil</a></td>
-      <td class="menu"><a href="listeEtablissements.php">
-      Gestion établissements</a></td>
-      <td class="menu"><a href="consultationAttributions.php">
-      Attributions chambres</a></td>
-   </tr>
-</table>
-<br>';
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- Custom styles for this template -->
+    <link href="navbar.css" rel="stylesheet">
+  </head>
 
-?>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="index.php">Festival Sportive du Monde<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="listeEtablissements.php">Gestion Etablissement</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="consultationAttributions.php">Attributions chambres</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
