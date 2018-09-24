@@ -113,5 +113,4 @@ if ($nbEtab!=0)
      // $lgEtab=mysql_fetch_array($rsEtab);
    } // Fin de la boucle sur les établissements
 }
-
 ?>
