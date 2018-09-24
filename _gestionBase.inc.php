@@ -9,7 +9,7 @@ function connect()
 	$bd = 'festival';
 	$hote = 'localhost';
 	$login = 'root';
-	$mdp = 'root';
+	$mdp = '';
 	$port='3306';
 	$dns = 'mysql:host='.$hote .';dbname='.$bd.';port='.$port;
 	$connexion = new PDO( $dns, $login, $mdp );
@@ -45,7 +45,7 @@ function obtenirReqEtablissementsOffrantChambres()
 
 function obtenirReqEtablissementsAyantChambresAttribuées()
 {
-   $req="select distinct id, nom, nombreChambresOffertes from Etablissement, 
+   $req="select distinct id, nom, nombreChambresOffertes,informationsPratiques,conventionSignee from Etablissement, 
          Attribution where id = idEtab order by id";
    return $req;
 }
@@ -240,7 +240,7 @@ function modifierAttribChamb($connexion, $idEtab, $idGroupe, $nbChambres)
 // dans l'établissement transmis
 function obtenirReqGroupesEtab($id)
 {
-   $req="select distinct id, nom from Groupe, Attribution where 
+   $req="select distinct id, nom,nomPays from Groupe, Attribution where 
         Attribution.idGroupe=Groupe.id and idEtab='$id'";
    return $req;
 }

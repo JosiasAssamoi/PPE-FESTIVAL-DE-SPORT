@@ -44,6 +44,16 @@ if ($nbEtab!=0)
    {
       $idEtab=$lgEtab['id'];
       $nomEtab=$lgEtab['nom'];
+	  if($lgEtab['conventionSignee'] ==0)
+	  {
+		  $conventionSignee="Non signée"; 
+	  }
+	  else
+	  {
+		  $conventionSignee="Signee" ;
+	  };
+	  
+	  $infospratique=$lgEtab['informationsPratiques'];
    
       echo "
       <table width='75%' cellspacing='0' cellpadding='0' align='center' 
@@ -82,9 +92,12 @@ if ($nbEtab!=0)
       {
          $idGroupe=$lgGroupe['id'];
          $nomGroupe=$lgGroupe['nom'];
+		 $paysGroupe=$lgGroupe['nomPays'];
+		 
          echo "
          <tr class='ligneTabQuad'>
-            <td width='65%' align='left'>$nomGroupe</td>";
+            <td width='65%' align='left'>$nomGroupe <b>($paysGroupe)</b> <br>  
+			Etat convention : $conventionSignee</td> ";
          // On recherche si des chambres ont déjà été attribuées à ce groupe
          // dans l'établissement
          $nbOccupGroupe=obtenirNbOccupGroupe($connexion, $idEtab, $idGroupe);
