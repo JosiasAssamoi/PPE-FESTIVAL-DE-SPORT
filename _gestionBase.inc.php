@@ -9,7 +9,7 @@ function connect()
 	$bd = 'festival';
 	$hote = 'localhost';
 	$login = 'root';
-	$mdp = 'root';
+	$mdp = '';
 	$port='3306';
 	$dns = 'mysql:host='.$hote .';dbname='.$bd.';port='.$port;
 	$connexion = new PDO( $dns, $login, $mdp );
@@ -39,7 +39,7 @@ function obtenirReqEtablissements()
 function obtenirReqEtablissementsOffrantChambres()
 {
    $req="select id, nom, nombreChambresOffertes from Etablissement where
-         nombreChambresOffertes!=0 order by id";
+         nombreChambresOffertes!=0 and conventionSignee!=0 order by id";
    return $req;
 }
 

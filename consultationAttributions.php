@@ -97,20 +97,21 @@ if ($nbEtab!=0)
 
          echo "
          <tr class='ligneTabQuad'>
-            <td width='65%' align='left'>$nomGroupe <b>($paysGroupe)</b> <br>
-			Etat convention</u> : $conventionSignee</td> ";
+            <td width='65%' align='left'>$nomGroupe <b>($paysGroupe)</b><br> 
+			</td> ";
          // On recherche si des chambres ont déjà été attribuées à ce groupe
          // dans l'établissement
          $nbOccupGroupe=obtenirNbOccupGroupe($connexion, $idEtab, $idGroupe);
          echo "
             <td width='35%' align='left'>$nbOccupGroupe</td>
-         </tr>";
+         </tr> ";
        //  $lgGroupe=mysql_fetch_array($rsGroupe);
       } // Fin de la boucle sur les groupes
-
+	
       echo "
-      </table><br>";
+       <tr class='ligneTabQuad'>  <td width='65%' align='left'>Etat convention</u> : $conventionSignee<br> </tr></td></table> ";
      // $lgEtab=mysql_fetch_array($rsEtab);
    } // Fin de la boucle sur les établissements
 }
+
 ?>
