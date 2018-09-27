@@ -44,29 +44,31 @@ if ($action=='demanderCreEtab')
    $nomResponsable='';
    $prenomResponsable='';
    $nombreChambresOffertes='';
+   $infosPratiques='';
 }
 else
 {
-   $id=$_REQUEST['id']; 
-   $nom=$_REQUEST['nom']; 
-   $adresseRue=$_REQUEST['adresseRue'];
-   $codePostal=$_REQUEST['codePostal'];
-   $ville=$_REQUEST['ville'];
-   $tel=$_REQUEST['tel'];
-   $adresseElectronique=$_REQUEST['adresseElectronique'];
-   $type=$_REQUEST['type'];
-   $civiliteResponsable=$_REQUEST['civiliteResponsable'];
-   $nomResponsable=$_REQUEST['nomResponsable'];
-   $prenomResponsable=$_REQUEST['prenomResponsable'];
-   $nombreChambresOffertes=$_REQUEST['nombreChambresOffertes'];
+   $id=htmlspecialchars($_REQUEST['id']); 
+   $nom=htmlspecialchars($_REQUEST['nom']); 
+   $adresseRue=htmlspecialchars($_REQUEST['adresseRue']);
+   $codePostal=htmlspecialchars($_REQUEST['codePostal']);
+   $ville=htmlspecialchars($_REQUEST['ville']);
+   $tel=htmlspecialchars($_REQUEST['tel']);
+   $adresseElectronique=htmlspecialchars($_REQUEST['adresseElectronique']);
+   $type=htmlspecialchars($_REQUEST['type']);
+   $civiliteResponsable=htmlspecialchars($_REQUEST['civiliteResponsable']);
+   $nomResponsable=htmlspecialchars($_REQUEST['nomResponsable']);
+   $prenomResponsable=htmlspecialchars($_REQUEST['prenomResponsable']);
+   $nombreChambresOffertes=htmlspecialchars($_REQUEST['nombreChambresOffertes']);
+   $infosPratiques=htmlspecialchars($_REQUEST['informationsPratiques']);
 
    verifierDonneesEtabC($connexion, $id, $nom, $adresseRue, $codePostal, $ville, 
-                        $tel, $nomResponsable, $nombreChambresOffertes);      
+                        $tel, $nomResponsable, $nombreChambresOffertes,$infosPratiques);      
    if (nbErreurs()==0)
    {        
       creerEtablissement($connexion, $id, $nom, $adresseRue, $codePostal, $ville,  
                          $tel, $adresseElectronique, $type, $civiliteResponsable, 
-                         $nomResponsable, $prenomResponsable, $nombreChambresOffertes);
+                         $nomResponsable, $prenomResponsable, $nombreChambresOffertes,$infosPratiques);
    }
 }
 
@@ -133,6 +135,10 @@ echo "
                 Etablissement Scolaire
                 <input type='radio' name='type' value='0' checked> Autre";
               }
+			  echo '<tr class="ligneTabNonQuad">
+         <td> Informations pratiques*: </td>
+         <td><input type="textarea" size = 100 value="'.$infosPratiques.'" name="informationsPratiques" 
+          ></td>';
            echo "
            </td>
          </tr>

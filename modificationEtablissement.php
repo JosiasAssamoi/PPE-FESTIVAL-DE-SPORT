@@ -46,28 +46,30 @@ if ($action=='demanderModifEtab')
    $nomResponsable=$lgEtab['nomResponsable'];
    $prenomResponsable=$lgEtab['prenomResponsable'];
    $nombreChambresOffertes=$lgEtab['nombreChambresOffertes'];
+   $infosPratiques=$lgEtab['informationsPratiques'];
 }
 else
 {
-   $nom=$_REQUEST['nom']; 
-   $adresseRue=$_REQUEST['adresseRue'];
-   $codePostal=$_REQUEST['codePostal'];
-   $ville=$_REQUEST['ville'];
-   $tel=$_REQUEST['tel'];
-   $adresseElectronique=$_REQUEST['adresseElectronique'];
-   $type=$_REQUEST['type'];
-   $civiliteResponsable=$_REQUEST['civiliteResponsable'];
-   $nomResponsable=$_REQUEST['nomResponsable'];
-   $prenomResponsable=$_REQUEST['prenomResponsable'];
-   $nombreChambresOffertes=$_REQUEST['nombreChambresOffertes'];
+   $nom=htmlspecialchars($_REQUEST['nom']); 
+   $adresseRue=htmlspecialchars($_REQUEST['adresseRue']);
+   $codePostal=htmlspecialchars($_REQUEST['codePostal']);
+   $ville=htmlspecialchars($_REQUEST['ville']);
+   $tel=htmlspecialchars($_REQUEST['tel']);
+   $adresseElectronique=htmlspecialchars($_REQUEST['adresseElectronique']);
+   $type=htmlspecialchars($_REQUEST['type']);
+   $civiliteResponsable=htmlspecialchars($_REQUEST['civiliteResponsable']);
+   $nomResponsable=htmlspecialchars($_REQUEST['nomResponsable']);
+   $prenomResponsable=htmlspecialchars($_REQUEST['prenomResponsable']);
+   $nombreChambresOffertes=htmlspecialchars($_REQUEST['nombreChambresOffertes']);
+   $infosPratiques=htmlspecialchars($_REQUEST['informatationsPratiques']);
 
    verifierDonneesEtabM($connexion, $id, $nom, $adresseRue, $codePostal, $ville,  
-                        $tel, $nomResponsable, $nombreChambresOffertes);      
+                        $tel, $nomResponsable, $nombreChambresOffertes,$infosPratiques);      
    if (nbErreurs()==0)
    {        
       modifierEtablissement($connexion, $id, $nom, $adresseRue, $codePostal, $ville, 
                             $tel, $adresseElectronique, $type, $civiliteResponsable, 
-                            $nomResponsable, $prenomResponsable, $nombreChambresOffertes);
+                            $nomResponsable, $prenomResponsable, $nombreChambresOffertes,$infosPratiques);
    }
 }
 
@@ -164,6 +166,11 @@ echo "
             <td><input type="text" value="'.$nombreChambresOffertes.'" name=
             "nombreChambresOffertes" size ="2" maxlength="3"></td>
          </tr>
+		  <tr class="ligneTabNonQuad">
+            <td> Informations pratiques*: </td>
+            <td><input type="text" value="'.$infosPratiques.'" name=
+            "informatationsPratiques" size ="100" ></td>
+         </tr><br>
    </table>';
    
    echo "

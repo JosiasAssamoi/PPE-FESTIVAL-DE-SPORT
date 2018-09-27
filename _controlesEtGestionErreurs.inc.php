@@ -27,10 +27,10 @@ function estChiffresOuEtLettres($valeur)
 // Fonction qui vérifie la saisie lors de la modification d'un établissement. 
 // Pour chaque champ non valide, un message est ajouté à la liste des erreurs
 function verifierDonneesEtabM($connexion, $id, $nom, $adresseRue, $codePostal, 
-                              $ville, $tel, $nomResponsable, $nombreChambresOffertes)
+                              $ville, $tel, $nomResponsable, $nombreChambresOffertes,$infosPratiques)
 {
    if ($nom=="" || $adresseRue=="" || $codePostal=="" || $ville=="" || 
-       $tel=="" || $nomResponsable=="" || $nombreChambresOffertes=="")
+       $tel=="" || $nomResponsable=="" || $nombreChambresOffertes=="" || $infosPratiques=="")
    {
       ajouterErreur("Chaque champ suivi du caractère * est obligatoire");
    }
@@ -53,10 +53,10 @@ function verifierDonneesEtabM($connexion, $id, $nom, $adresseRue, $codePostal,
 // Fonction qui vérifie la saisie lors de la création d'un établissement. 
 // Pour chaque champ non valide, un message est ajouté à la liste des erreurs
 function verifierDonneesEtabC($connexion, $id, $nom, $adresseRue, $codePostal, 
-                              $ville, $tel, $nomResponsable, $nombreChambresOffertes)
+                              $ville, $tel, $nomResponsable, $nombreChambresOffertes,$infosPratique)
 {
    if ($id=="" || $nom=="" || $adresseRue=="" || $codePostal=="" || $ville==""
-       || $tel=="" || $nomResponsable=="" || $nombreChambresOffertes=="")
+       || $tel=="" || $nomResponsable=="" || $nombreChambresOffertes=="" || $infosPratique=="")
    {
       ajouterErreur("Chaque champ suivi du caractère * est obligatoire");
    }

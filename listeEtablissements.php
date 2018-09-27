@@ -20,6 +20,16 @@ if (!selectBase($connexion))
    exit();
 }
 
+ if ( isset($_POST['valider']) AND isset($_POST['idEtab']) )
+ {
+	echo '<h1> dedans </h1>' ;
+	$idEtab=$_POST['idEtab'];
+	echo $idEtab;
+	$modif=ModifConventionSignee($connexion,$idEtab);
+	//var_dump($modif);
+ }
+
+
 // AFFICHER L'ENSEMBLE DES ÉTABLISSEMENTS
 // CETTE PAGE CONTIENT UN TABLEAU CONSTITUÉ D'1 LIGNE D'EN-TÊTE ET D'1 LIGNE PAR
 // ÉTABLISSEMENT
@@ -27,10 +37,13 @@ if (!selectBase($connexion))
 echo "
 <table width='70%' cellspacing='0' cellpadding='0' align='center' 
 class='tabNonQuadrille'>
+
    <tr class='enTeteTabNonQuad'>
       <td colspan='4'>Etablissements</td>
    </tr>";
-     
+   
+  
+
    $req=obtenirReqEtablissements();
    $rsEtab=$connexion->query($req);
    $rsEtab->execute();
@@ -42,6 +55,7 @@ class='tabNonQuadrille'>
    {
       $id=$lgEtab['id'];
       $nom=$lgEtab['nom'];
+	  $conventionSignee=$lgEtab['conventionSignee'];
       echo "
 		<tr class='ligneTabNonQuad'>
          <td width='52%'>$nom</td>
@@ -62,6 +76,7 @@ class='tabNonQuadrille'>
             <td width='16%' align='center'> 
             <a href='suppressionEtablissement.php?action=demanderSupprEtab&amp;id=$id'>
             Supprimer</a></td>";
+			
          }
          else
          {
@@ -69,7 +84,13 @@ class='tabNonQuadrille'>
             <td width='16%'>&nbsp; </td>";          
 			}
 			echo "
-      </tr>";
+      ";
+	  
+	  if (!$conventionSignee){
+	    echo '<form method="POST" action="listeEtablissements.php?"> <td>Convention Signee ? <input type="checkbox" value="'.$conventionSignee.'" name="conventionSignee"> 
+		<input type="submit" value="valider" name="valider"> <input type="hidden" value="'.$id.'" name="idEtab"></td>
+		 </form>
+	  </tr>';}
     
    }   
    echo "
@@ -77,6 +98,7 @@ class='tabNonQuadrille'>
       <td colspan='4'><a href='creationEtablissement.php?action=demanderCreEtab'>
       Création d'un établissement</a ></td>
   </tr>
+
 </table>";
 
 ?>

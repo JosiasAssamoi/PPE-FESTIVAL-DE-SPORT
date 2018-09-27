@@ -3,7 +3,10 @@
 - Annexes : Ajouter drapeau pour les pays ( consultations attributions ) , Couleur theme menu en blanc si 
 on trouve de quoi remplir le corps de la page (trop vide), Simuler des conventions signée .  crypter les mdp
 
--  eviter les injections html (html specialchars etc) 
+-  eviter les injections html (html specialchars etc) : ( FAIT ) 
+
+Faire des requetes preparées : ( FAIT)
+htmlentities : Convertit tous les caractères éligibles en entités HTML (FAIT) 
 
 - Il a donc été choisi de conserver l’application intranet telle quelle et de créer une application web à 
 destination des établissements ; bien sûr, cette application sera très voisine de l’application intranet 
@@ -14,8 +17,10 @@ doit consulter la base pour obtenir cette information ( deja fait )
 
 - Ajouter dans le menu liste groupe et y rajouter toutes les caractéristiques des groupes. (A faire)
 
+
+
 -Le document remis pour l’hébergement mériterait d’être complété d’informations pratiques 
-(numéro de téléphone à composer en cas de problème, horaires pour le petit déjeuner, etc.). (A FAIRE)
+(numéro de téléphone à composer en cas de problème, horaires pour le petit déjeuner, etc.). (FAIT )
 
 
 Le site intranet de la mairie va donc offrir un service destiné aux établissements ; il s’ouvre ainsi 

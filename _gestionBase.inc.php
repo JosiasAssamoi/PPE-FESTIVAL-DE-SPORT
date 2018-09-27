@@ -30,9 +30,19 @@ function selectBase($connexion)
 
 // FONCTIONS DE GESTION DES ÉTABLISSEMENTS
 
+function ModifConventionSignee($connexion, $idEtab)
+{
+	
+   $req="Update Etablissement  set conventionSignee = 1 where id= ?";
+   $conv=$connexion->prepare($req);
+   
+   $conv->execute(array($idEtab));
+  
+}
+
 function obtenirReqEtablissements()
 {
-   $req="select  id, nom from Etablissement order by id";
+   $req="select  id, nom,conventionSignee from Etablissement order by id";
    return $req;
 }
 
@@ -52,9 +62,9 @@ function obtenirReqEtablissementsAyantChambresAttribuées()
 
 function obtenirDetailEtablissement($connexion, $id)
 {
-   $req="select * from Etablissement where id='$id'";
-   $rsEtab=$connexion->query($req);
-   $rsEtab->execute();
+   $req="select * from Etablissement where id=?";
+   $rsEtab=$connexion->prepare($req);
+   $rsEtab->execute(array($id));
    $rsEtab=$rsEtab->fetch();
    return $rsEtab;
 }
@@ -62,14 +72,14 @@ function obtenirDetailEtablissement($connexion, $id)
 function supprimerEtablissement($connexion, $id)
 {
    $req="delete from Etablissement where id='$id'";
- $sup= $connexion->query($req);
- // $sup->execute();
+ $sup= $connexion->prepare($req);
+ $sup->execute();
 }
 
 function modifierEtablissement($connexion, $id, $nom, $adresseRue, $codePostal,
                                $ville, $tel, $adresseElectronique, $type,
                                $civiliteResponsable, $nomResponsable,
-                               $prenomResponsable, $nombreChambresOffertes)
+                               $prenomResponsable, $nombreChambresOffertes,$infosPratiques)
 {
    $nom=str_replace("'", "''", $nom);
    $adresseRue=str_replace("'","''", $adresseRue);
@@ -83,9 +93,9 @@ function modifierEtablissement($connexion, $id, $nom, $adresseRue, $codePostal,
          adresseElectronique='$adresseElectronique',type='$type',
          civiliteResponsable='$civiliteResponsable',nomResponsable=
          '$nomResponsable',prenomResponsable='$prenomResponsable',
-         nombreChambresOffertes='$nombreChambresOffertes' where id='$id'";
+         nombreChambresOffertes='$nombreChambresOffertes',informationsPratiques=$infosPratiques where id='$id'";
 
-   $modif=$connexion->query($req);
+   $modif=$connexion->prepare($req);
    $modif->execute();
 
 
@@ -94,7 +104,7 @@ function modifierEtablissement($connexion, $id, $nom, $adresseRue, $codePostal,
 function creerEtablissement($connexion, $id, $nom, $adresseRue, $codePostal,
                             $ville, $tel, $adresseElectronique, $type,
                             $civiliteResponsable, $nomResponsable,
-                            $prenomResponsable, $nombreChambresOffertes)
+                            $prenomResponsable, $nombreChambresOffertes,$infosPratiques)
 {
    $nom=str_replace("'", "''", $nom);
    $adresseRue=str_replace("'","''", $adresseRue);
@@ -103,20 +113,21 @@ function creerEtablissement($connexion, $id, $nom, $adresseRue, $codePostal,
    $nomResponsable=str_replace("'","''", $nomResponsable);
    $prenomResponsable=str_replace("'","''", $prenomResponsable);
 
-   $req="insert into Etablissement values ('$id', '$nom', '$adresseRue',
-         '$codePostal', '$ville', '$tel', '$adresseElectronique', '$type',
-         '$civiliteResponsable', '$nomResponsable', '$prenomResponsable',
-         '$nombreChambresOffertes')";
+   $req="insert into Etablissement values (:id,:nom,:adr,:cp,:ville,:tel,:eadr,:type,:civilite,:nomrespo,:prenomrespo,:nbchambres,:mdp,:infosPratiques,
+   :conventionSignee)";
 
-    $creation=$connexion->query($req);
-	//$creation->execute();
+    $creation=$connexion->prepare($req);
+	$creation->execute(array('id'=>$id,'nom'=> $nom,'adr'=> $adresseRue,
+         'cp' => $codePostal,'ville'=> $ville,'tel'=> $tel, 'eadr'=> $adresseElectronique,'type'=> $type,
+        'civilite'=> $civiliteResponsable,'nomrespo'=> $nomResponsable,'prenomrespo'=> $prenomResponsable,
+         'nbchambres'=>$nombreChambresOffertes,'mdp'=>"0000",'infosPratiques'=>$infosPratiques,'conventionSignee'=>0));
 }
 
 
 function estUnIdEtablissement($connexion, $id)
 {
    $req="select * from Etablissement where id='$id'";
-   $rsEtab=$connexion->query($req);
+   $rsEtab=$connexion->prepare($req);
    $rsEtab->execute();
    $rsEtab= $rsEtab->fetch();
    return $rsEtab;
@@ -136,7 +147,7 @@ function estUnNomEtablissement($connexion, $mode, $id, $nom)
    {
       $req="select * from Etablissement where nom='$nom' and id!='$id'";
    }
-   $rsEtab=$connexion->query($req);
+   $rsEtab=$connexion->prepare($req);
    $rsEtab->execute();
    $rsEtab= $rsEtab->fetch();
    return $rsEtab;
@@ -145,7 +156,7 @@ function estUnNomEtablissement($connexion, $mode, $id, $nom)
 function obtenirNbEtab($connexion)
 {
    $req="select count(*) as nombreEtab from Etablissement";
-   $rsEtab=$connexion->query($req);
+   $rsEtab=$connexion->prepare($req);
    $rsEtab= $rsEtab->execute();
    $lgEtab=$rsEtab->fetch();
    return $lgEtab["nombreEtab"];
@@ -155,7 +166,7 @@ function obtenirNbEtabOffrantChambres($connexion)
 {
    $req="select count(*) as nombreEtabOffrantChambres from Etablissement where
          nombreChambresOffertes!=0";
-   $rsEtabOffrantChambres=$connexion->query($req);
+   $rsEtabOffrantChambres=$connexion->prepare($req);
     $rsEtabOffrantChambres->execute();
    $lgEtabOffrantChambres= $rsEtabOffrantChambres->fetch();
    return $lgEtabOffrantChambres["nombreEtabOffrantChambres"];
@@ -181,7 +192,7 @@ function obtenirReqIdNomGroupesAHeberger()
 function obtenirNomGroupe($connexion, $id)
 {
    $req="select nom from Groupe where id='$id'";
-   $rsGroupe=$connexion->query($req);
+   $rsGroupe=$connexion->prepare($req);
    $rsGroupe->execute();
 
 
@@ -195,7 +206,7 @@ function obtenirNomGroupe($connexion, $id)
 function existeAttributionsEtab($connexion, $id)
 {
    $req="select * From Attribution where idEtab='$id'";
-   $rsAttrib=$connexion->query($req);
+   $rsAttrib=$connexion->prepare($req);
    $rsAttrib->execute();
    $rsAttrib= $rsAttrib->fetch();
    return $rsAttrib;
@@ -206,7 +217,7 @@ function obtenirNbOccup($connexion, $idEtab)
 {
    $req="select IFNULL(sum(nombreChambres), 0) as totalChambresOccup from
         Attribution where idEtab='$idEtab'";
-   $rsOccup=$connexion->query($req);
+   $rsOccup=$connexion->prepare($req);
    $rsOccup->execute();
    $lgOccup= $rsOccup->fetch();
    return $lgOccup["totalChambresOccup"];
@@ -217,9 +228,9 @@ function obtenirNbOccup($connexion, $idEtab)
 function modifierAttribChamb($connexion, $idEtab, $idGroupe, $nbChambres)
 {
    $req="select count(*) as nombreAttribGroupe from Attribution where idEtab=
-        '$idEtab' and idGroupe='$idGroupe'";
-   $rsAttrib=$connexion->query($req);
-   $rsAttrib->execute();
+        ? and idGroupe=?";
+   $rsAttrib=$connexion->prepare($req);
+   $rsAttrib->execute(array($idEtab,$idGroupe));
    $rsAttrib=$rsAttrib->fetch();
    $lgAttrib=$rsAttrib;
    if ($nbChambres==0)
@@ -233,7 +244,7 @@ function modifierAttribChamb($connexion, $idEtab, $idGroupe, $nbChambres)
          $req="insert into Attribution values('$idEtab','$idGroupe', $nbChambres)";
    }
    $connexion->query($req);
- //  $connexion->execute($req);
+   //$connexion->execute($req);
 }
 
 // Retourne la requête permettant d'obtenir les id et noms des groupes affectés
@@ -251,7 +262,7 @@ function obtenirNbOccupGroupe($connexion, $idEtab, $idGroupe)
 {
    $req="select nombreChambres From Attribution where idEtab='$idEtab'
         and idGroupe='$idGroupe'";
-   $rsAttribGroupe=$connexion->query($req);
+   $rsAttribGroupe=$connexion->prepare($req);
    $rsAttribGroupe->execute();
    $rsAttribGroupe=$rsAttribGroupe->fetch();
    if ($lgAttribGroupe=$rsAttribGroupe)

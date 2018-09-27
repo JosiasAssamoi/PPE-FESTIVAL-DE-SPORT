@@ -37,6 +37,7 @@ $civiliteResponsable=$lgEtab['civiliteResponsable'];
 $nomResponsable=$lgEtab['nomResponsable'];
 $prenomResponsable=$lgEtab['prenomResponsable'];
 $nombreChambresOffertes=$lgEtab['nombreChambresOffertes'];
+$infosPratiques=$lgEtab['informationsPratiques'];
 
 echo "
 <table width='60%' cellspacing='0' cellpadding='0' align='center' 
@@ -89,6 +90,10 @@ class='tabNonQuadrille'>
    <tr class='ligneTabNonQuad'>
       <td> Offre: </td>
       <td>$nombreChambresOffertes&nbsp;chambre(s)</td>
+   </tr>
+   <tr class='ligneTabNonQuad'>
+      <td> Informations pratiques: </td>
+      <td>$infosPratiques &nbsp;</td>
    </tr>
 </table>
 <table align='center'>
