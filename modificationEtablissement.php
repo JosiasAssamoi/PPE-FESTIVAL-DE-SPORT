@@ -124,14 +124,14 @@ echo "
             {
                echo " 
                <input type='radio' name='type' value='1' checked>  
-               Etablissement Scolaire
+               Etablissement Sportif
                <input type='radio' name='type' value='0'>  Autre";
              }
              else
              {
                 echo " 
                 <input type='radio' name='type' value='1'> 
-                Etablissement Scolaire
+                Etablissement Sportif
                 <input type='radio' name='type' value='0' checked> Autre";
               }
            echo "

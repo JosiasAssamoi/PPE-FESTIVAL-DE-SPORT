@@ -36,7 +36,7 @@ function  VerifIp($connexion)
 	$result=$check->fetch();
 	
 	if(!empty($result))
-		return 0 ;
+		return 1 ;
 	else 
 		return 0 ;
 	
@@ -104,15 +104,16 @@ function modifierEtablissement($connexion, $id, $nom, $adresseRue, $codePostal,
    $nomResponsable=str_replace("'","''", $nomResponsable);
    $prenomResponsable=str_replace("'","''", $prenomResponsable);
 
-   $req="update Etablissement set nom='$nom',adresseRue='$adresseRue',
-         codePostal='$codePostal',ville='$ville',tel='$tel',
-         adresseElectronique='$adresseElectronique',type='$type',
-         civiliteResponsable='$civiliteResponsable',nomResponsable=
-         '$nomResponsable',prenomResponsable='$prenomResponsable',
-         nombreChambresOffertes='$nombreChambresOffertes',informationsPratiques=$infosPratiques where id='$id'";
+   $req="update Etablissement set nom=?,adresseRue=?,
+         codePostal=?,ville=?,tel=?,
+         adresseElectronique=?,type=?,
+         civiliteResponsable=?,nomResponsable=
+         ?,prenomResponsable=?,
+         nombreChambresOffertes=?,informationsPratiques=? where id=?";
 
    $modif=$connexion->prepare($req);
-   $modif->execute();
+   $modif->execute(array($nom, $adresseRue, $codePostal, $ville, $tel, $adresseElectronique, $type,
+   $civiliteResponsable, $nomResponsable,$prenomResponsable, $nombreChambresOffertes,$infosPratiques,$id));
 
 
 }
