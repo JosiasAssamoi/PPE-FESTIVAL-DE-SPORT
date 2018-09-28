@@ -1,4 +1,3 @@
-
 <?php
 
 include "_debut.inc.php";
@@ -22,21 +21,18 @@ if (!selectBase($connexion))
    exit();
 }
 
-
-$Checkip =VerifIp($connexion); 
-var_dump($Checkip);
-if(!$Checkip){
-	$delai=0; 
-    $url='http://localhost/ConnexionEtablissement';
-    header("Refresh: $delai;url=$url");
-}
 	
 echo " <br> 
 <table width='80%' cellspacing='0' cellpadding='0' align='center'>
    <tr>  
       <td class='texteAccueil'>
-         Cette application web permet de gérer l'hébergement des groupes de musique 
-         durant le festival Folklores du Monde.
+        <form method = 'post' action 'connexion.php' ><center>
+				<br>&nbsp &nbsp &nbsp Entrer Votre identifiant  <input  required type = 'text' name = 'pseudo' placeholder='Votre id...'> </input>	</br>
+				<br>Entrer un mot de passe &nbsp &nbsp <input  required type = 'password' name = 'mdp' placeholder='mot de passe ...'> </input>	</br>
+				<br><input type= 'submit' value= 'Connexion' > </input><br></center>
+			
+			</form>
+		</div>
       </td>
 
    </tr>

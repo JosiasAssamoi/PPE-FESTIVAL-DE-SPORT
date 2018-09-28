@@ -21,14 +21,16 @@ if (!selectBase($connexion))
    afficherErreurs();
    exit();
 }
-
-
 $Checkip =VerifIp($connexion); 
 if(!$Checkip){
 	echo  'dedans';
-    header('Location: listeEtablissement.php');
+    header('Location: ConnexionEtablissement.php');
     exit(); 
 }
+
+
+
+
 	
 echo " <br> 
 <table width='80%' cellspacing='0' cellpadding='0' align='center'>

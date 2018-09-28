@@ -20,6 +20,16 @@ if (!selectBase($connexion))
    exit();
 }
 
+
+$Checkip =VerifIp($connexion); 
+if(!$Checkip){
+	echo  'dedans';
+    header('Location: ConnexionEtablissement.php');
+    exit(); 
+}
+
+
+// VERIF DES CONVENTIONS SIGNEES
  if ( isset($_POST['valider']) AND isset($_POST['idEtab']) )
  {
 	echo '<h1> dedans </h1>' ;

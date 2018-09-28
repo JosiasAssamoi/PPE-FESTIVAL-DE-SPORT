@@ -19,6 +19,14 @@ if (!selectBase($connexion))
    afficherErreurs();
    exit();
 }
+// VERIF IP 
+$Checkip =VerifIp($connexion); 
+if(!$Checkip){
+	echo  'dedans';
+    header('Location: ConnexionEtablissement.php');
+    exit(); 
+}
+
 
 // CONSULTER LES ATTRIBUTIONS DE TOUS LES ÉTABLISSEMENTS
 
