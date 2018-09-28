@@ -49,4 +49,7 @@ L’application intranet reste inchangée à l’exception :
 ALTER TABLE `etablissement` ADD `motDePasse` VARCHAR(50) NOT NULL AFTER `nombreChambresOffertes`, ADD `informationsPratiques` VARCHAR(100) NOT NULL AFTER `motDePasse`, ADD `conventionSignée` BOOLEAN NOT NULL DEFAULT FALSE AFTER `informationsPratiques`; 
 
 CREATE TABLE `festival`.`Adresseip` ( `numip` VARCHAR(20) NOT NULL ) ENGINE = InnoDB;
- ALTER TABLE `adresseip` ADD PRIMARY KEY(`numip`)
+ALTER TABLE `adresseip` ADD PRIMARY KEY(`numip`)
+
+- Il reste la page de connexion a faire et liste groupe et la page inscription et la page de saisie des capacités
+et des infos pour chaque etablissement apres la connexion de chaque etablissement 
