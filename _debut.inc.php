@@ -1,4 +1,4 @@
-<!doctype html>
+ <!doctype html>
 <html lang="fr">
   <head>
     <meta charset="utf-8">
@@ -47,3 +47,4 @@
   <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
+

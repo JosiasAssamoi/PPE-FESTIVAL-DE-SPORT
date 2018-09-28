@@ -3,6 +3,33 @@
 
 include "_debut.inc.php";
 
+include("_gestionBase.inc.php");
+include("_controlesEtGestionErreurs.inc.php");
+
+// CONNEXION AU SERVEUR MYSQL PUIS SÉLECTION DE LA BASE DE DONNÉES festival
+
+$connexion=connect();
+if (!$connexion)
+{
+   ajouterErreur("Echec de la connexion au serveur MySql");
+   afficherErreurs();
+   exit();
+}
+if (!selectBase($connexion))
+{
+   ajouterErreur("La base de données festival est inexistante ou non accessible");
+   afficherErreurs();
+   exit();
+}
+
+
+$Checkip =VerifIp($connexion); 
+if(!$Checkip){
+	echo  'dedans';
+    header('Location: listeEtablissement.php');
+    exit(); 
+}
+	
 echo " <br> 
 <table width='80%' cellspacing='0' cellpadding='0' align='center'>
    <tr>  

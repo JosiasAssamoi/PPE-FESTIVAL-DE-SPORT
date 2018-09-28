@@ -16,7 +16,7 @@ function connect()
 	$connexion -> setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 	}
 	catch(PDOException $e){die('Erreur : '.$e->getMessage());}
-   return $connexion;
+    return $connexion;
 }
 	//$connexion=connect();
 	//var_dump($connexion) ;
@@ -25,6 +25,22 @@ function selectBase($connexion)
 {
   $connexion->query('SET NAMES UTF8');
    return $connexion;
+}
+
+//FONCTION VERIF ADRESSE IP  
+function  VerifIp($connexion)
+{
+	$ip_user=(String)$_SERVER['REMOTE_ADDR'];
+	$check=$connexion->prepare('select numip from Adresseip where numip=?');
+	$check->execute(array($ip_user));
+	$result=$check->fetch();
+	
+	if(!empty($result))
+		return 0 ;
+	else 
+		return 0 ;
+	
+	
 }
 
 

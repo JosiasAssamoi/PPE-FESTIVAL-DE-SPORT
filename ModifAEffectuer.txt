@@ -7,6 +7,7 @@ on trouve de quoi remplir le corps de la page (trop vide), Simuler des conventio
 
 Faire des requetes preparées : ( FAIT)
 htmlentities : Convertit tous les caractères éligibles en entités HTML (FAIT) 
+htmspecialchars : Convertit tous les caractères speciaux en entités HTML (FAIT)
 
 - Il a donc été choisi de conserver l’application intranet telle quelle et de créer une application web à 
 destination des établissements ; bien sûr, cette application sera très voisine de l’application intranet 
@@ -43,5 +44,9 @@ L’application intranet reste inchangée à l’exception :
 	 ayant signé la convention ;
 	de la possibilité d’obtenir la liste détaillée des groupes.
 
+- Ajouter la table Adresse Ip 
+
 ALTER TABLE `etablissement` ADD `motDePasse` VARCHAR(50) NOT NULL AFTER `nombreChambresOffertes`, ADD `informationsPratiques` VARCHAR(100) NOT NULL AFTER `motDePasse`, ADD `conventionSignée` BOOLEAN NOT NULL DEFAULT FALSE AFTER `informationsPratiques`; 
 
+CREATE TABLE `festival`.`Adresseip` ( `numip` VARCHAR(20) NOT NULL ) ENGINE = InnoDB;
+ ALTER TABLE `adresseip` ADD PRIMARY KEY(`numip`)
