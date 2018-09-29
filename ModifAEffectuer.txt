@@ -54,7 +54,7 @@ ALTER TABLE `adresseip` ADD PRIMARY KEY(`numip`)
 - Il reste la page de connexion a faire et liste groupe et la page inscription et la page de saisie des capacités
 et des infos pour chaque etablissement apres la connexion de chaque etablissement 
 
-Pour recevoir mail avec mdp [mail function] : 
+Pour recevoir mail avec mdp configurer le php ini  [mail function] : 
 
 ; For Win32 only.
 ; http://php.net/smtp
