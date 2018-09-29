@@ -36,12 +36,26 @@ function  VerifIp($connexion)
 	$result=$check->fetch();
 	
 	if(!empty($result))
-		return 1 ;
+		return 0 ;
 	else 
 		return 0 ;
 	
 	
 }
+
+// FONCTION REINITIALISER MDP 
+
+ function createPassword($nbCaractere)
+    {
+        $password = "";
+        for($i = 0; $i <= $nbCaractere; $i++)
+        {
+            $random = rand(97,122);
+            $password .= chr($random);
+        }
+ 
+        return $password;
+    }
 
 
 // FONCTIONS DE GESTION DES ÉTABLISSEMENTS

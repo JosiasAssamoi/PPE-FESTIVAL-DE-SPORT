@@ -29,7 +29,9 @@ echo " <br>
         <form method = 'post' action 'connexion.php' ><center>
 				<br>&nbsp &nbsp &nbsp Entrer Votre identifiant  <input  required type = 'text' name = 'pseudo' placeholder='Votre id...'> </input>	</br>
 				<br>Entrer un mot de passe &nbsp &nbsp <input  required type = 'password' name = 'mdp' placeholder='mot de passe ...'> </input>	</br>
-				<br><input type= 'submit' value= 'Connexion' > </input><br></center>
+				<br><input type= 'submit' value= 'Connexion' > </input><br>
+				<br> Vous êtes un nouvel etablissement et vous n'avez pas encore de mot de passe ? 
+				Cliquez <b>&rArr;</b> <a href='InscriptionEtablissement.php'>ici </a> </center>
 			
 			</form>
 		</div>

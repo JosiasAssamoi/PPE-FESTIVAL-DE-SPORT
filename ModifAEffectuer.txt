@@ -53,3 +53,15 @@ ALTER TABLE `adresseip` ADD PRIMARY KEY(`numip`)
 
 - Il reste la page de connexion a faire et liste groupe et la page inscription et la page de saisie des capacités
 et des infos pour chaque etablissement apres la connexion de chaque etablissement 
+
+Pour recevoir mail avec mdp [mail function] : 
+
+; For Win32 only.
+; http://php.net/smtp
+SMTP = smtp.free.fr
+; http://php.net/smtp-port
+smtp_port = 25
+
+; For Win32 only.
+; http://php.net/sendmail-from
+sendmail_from ="josiasassamoi@gmail.com"
