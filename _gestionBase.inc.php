@@ -301,6 +301,15 @@ function obtenirDetailGroupe($connexion, $id)
    return $rsGroupe;
 }
 
+function obtenirDetailGroupes($connexion)
+{
+   $req="select distinct * from Groupe";
+   $rsGroupe=$connexion->prepare($req);
+   $rsGroupe->execute();
+   $rsGroupe=$rsGroupe->fetchall();
+   return $rsGroupe;
+}
+
 
 // FONCTIONS RELATIVES AUX ATTRIBUTIONS
 

@@ -34,7 +34,7 @@ La Maison des Associations garde la maîtrise de l’affectation des groupes. (F
 
 - Une fois la répartition des groupes effectuée, l'établissement pourra imprimer une feuille 
 récapitulative précisant le nombre de chambres attribuées à chaque groupe hébergé. Ainsi, 
-l’établissement pourra disposer d’une liste le moment venu. ( Pas fait ) 
+l’établissement pourra disposer d’une liste le moment venu. ( fait ) 
 
 
 L’application intranet reste inchangée à l’exception :

@@ -23,7 +23,7 @@ if (!selectBase($connexion))
 
 $Checkip =VerifIp($connexion); 
 if(!$Checkip){
-	echo  'dedans';
+	
     header('Location: ConnexionEtablissement.php');
     exit(); 
 }
@@ -32,9 +32,9 @@ if(!$Checkip){
 // VERIF DES CONVENTIONS SIGNEES
  if ( isset($_POST['valider']) AND isset($_POST['idEtab']) )
  {
-	echo '<h1> dedans </h1>' ;
+	
 	$idEtab=$_POST['idEtab'];
-	echo $idEtab;
+	
 	$modif=ModifConventionSignee($connexion,$idEtab);
 	//var_dump($modif);
  }

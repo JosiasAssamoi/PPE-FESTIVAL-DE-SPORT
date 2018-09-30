@@ -27,15 +27,13 @@
           <li class="nav-item">
             <a class="nav-link" href="consultationAttributions.php">Attributions chambres<span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="listeGroupes.php">Listes des groupes<span class="sr-only">(current)</span></a>
-          </li>
+          
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="dropdown08" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">    </a>
             <div class="dropdown-menu" aria-labelledby="dropdown08">
               <a class="dropdown-item" href="listeEtablissements.php">Gestion Etablissement</a>
               <a class="dropdown-item" href="consultationAttributions.php">Attributions chambres</a>
-              <a class="dropdown-item" href="listeGroupes.php">Attributions chambres</a>
+              
             </div>
           </li>
         </ul>
