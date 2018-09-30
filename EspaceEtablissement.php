@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("_debut.inc.php");
+include("_debut.Etab.inc.php");
 include("_gestionBase.inc.php"); 
 include("_controlesEtGestionErreurs.inc.php");
 
@@ -21,29 +21,19 @@ if (!selectBase($connexion))
 }
 
 
-echo " <br> 
-<table width='80%' cellspacing='0' cellpadding='0' align='center'>
-   <tr>  
-      <td class='texteAccueil'>
-         Vous pouvez ci dessous modifier vos informations 
-      </td>
-  
-   </tr>
-</table>";
+
 
 // MODIFIER UN ÉTABLISSEMENT 
 
 // Déclaration du tableau des civilités
 $tabCivilite=array("M.","Mme","Melle");  
 
-$action=$_REQUEST['action'];
-$id=$_REQUEST['id'];
+$id=$_SESSION['idEtab'];
 
 // Si on ne "vient" pas de ce formulaire, il faut récupérer les données à partir 
 // de la base (en appelant la fonction obtenirDetailEtablissement) sinon on 
-// affiche les valeurs précédemment contenues dans le formulaire
-if ($action=='demanderModifEtab')
-{
+// affiche les valeurs de session
+
    $lgEtab=obtenirDetailEtablissement($connexion, $id);
   
    $nom=$lgEtab['nom'];
@@ -58,21 +48,8 @@ if ($action=='demanderModifEtab')
    $prenomResponsable=$lgEtab['prenomResponsable'];
    $nombreChambresOffertes=$lgEtab['nombreChambresOffertes'];
    $infosPratiques=$lgEtab['informationsPratiques'];
-}
-else
-{
-   $nom=htmlspecialchars($_REQUEST['nom']); 
-   $adresseRue=htmlspecialchars($_REQUEST['adresseRue']);
-   $codePostal=htmlspecialchars($_REQUEST['codePostal']);
-   $ville=htmlspecialchars($_REQUEST['ville']);
-   $tel=htmlspecialchars($_REQUEST['tel']);
-   $adresseElectronique=htmlspecialchars($_REQUEST['adresseElectronique']);
-   $type=htmlspecialchars($_REQUEST['type']);
-   $civiliteResponsable=htmlspecialchars($_REQUEST['civiliteResponsable']);
-   $nomResponsable=htmlspecialchars($_REQUEST['nomResponsable']);
-   $prenomResponsable=htmlspecialchars($_REQUEST['prenomResponsable']);
-   $nombreChambresOffertes=htmlspecialchars($_REQUEST['nombreChambresOffertes']);
-   $infosPratiques=htmlspecialchars($_REQUEST['informatationsPratiques']);
+
+
 
    verifierDonneesEtabM($connexion, $id, $nom, $adresseRue, $codePostal, $ville,  
                         $tel, $nomResponsable, $nombreChambresOffertes,$infosPratiques);      
@@ -82,7 +59,7 @@ else
                             $tel, $adresseElectronique, $type, $civiliteResponsable, 
                             $nomResponsable, $prenomResponsable, $nombreChambresOffertes,$infosPratiques);
    }
-}
+
 
 echo "
 <form method='POST' action='modificationEtablissement.php?'>
@@ -91,7 +68,13 @@ echo "
    class='tabNonQuadrille'>
    
       <tr class='enTeteTabNonQuad'>
-         <td colspan='3'>$nom ($id)</td>
+	 
+         <td colspan='3'>
+		  <b> Vous pouvez ci dessous modifier vos informations : <br> </b><br>
+		</td>
+      </tr>
+	  <td colspan='3'>
+		 $nom ($id)</td>
       </tr>
       <tr>
          <td><input type='hidden' value='$id' name='id'></td>
@@ -192,17 +175,14 @@ echo "
          <td align='left'><input type='reset' value='Annuler' name='annuler'>
          </td>
       </tr>
-      <tr>
-         <td colspan='2' align='center'><a href='listeEtablissements.php'>Retour</a>
-         </td>
-      </tr>
+      
    </table>
   
 </form>";
 
 // En cas de validation du formulaire : affichage des erreurs ou du message de 
 // confirmation
-if ($action=='validerModifEtab')
+if (isset($action) && $action=='validerModifEtab')
 {
    if (nbErreurs()!=0)
    {

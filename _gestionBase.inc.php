@@ -58,8 +58,8 @@ class connexionEtab
 	{ 
 	$connexion=connect();
 	$connexion=selectBase($connexion);
-		$this->idEtab = $idEtab;
-		$this->mdp = $mdp;
+		$this->idEtab = htmlspecialchars($idEtab);
+		$this->mdp = htmlspecialchars($mdp);
 		$this->connexion = $connexion;
 	}
 	public function check ()
@@ -139,6 +139,15 @@ function obtenirReqEtablissementsAyantChambresAttribuées()
    $req="select distinct id, nom, nombreChambresOffertes,informationsPratiques,conventionSignee from Etablissement,
          Attribution where id = idEtab order by id";
    return $req;
+}
+function Hebergementvalidés($connexion,$id)
+{
+    $req="select * from Etablissement,Attribution where id=?";
+   $rsEtab=$connexion->prepare($req);
+   $rsEtab->execute(array($id));
+   $rsEtab=$rsEtab->fetch();
+   return $rsEtab;
+   
 }
 
 function obtenirDetailEtablissement($connexion, $id)
@@ -281,6 +290,17 @@ function obtenirNomGroupe($connexion, $id)
    $lgGroupe=$rsGroupe->fetch();
    return $lgGroupe["nom"];
 }
+
+function obtenirDetailGroupe($connexion, $id)
+{
+   $req="select distinct * from Groupe, Attribution where
+        Attribution.idGroupe=Groupe.id and idEtab=?";
+   $rsGroupe=$connexion->prepare($req);
+   $rsGroupe->execute(array($id));
+   $rsGroupe=$rsGroupe->fetchall();
+   return $rsGroupe;
+}
+
 
 // FONCTIONS RELATIVES AUX ATTRIBUTIONS
 

@@ -33,7 +33,7 @@ if(isset($_POST['id']) AND isset($_POST['mdp']))
 	{
 		if($connexion->session()) 
 		{
-			header('location:index.php');
+			header('location:EspaceEtablissement.php');
 		}
 		else 
 		{
@@ -56,7 +56,7 @@ echo " <br>
 				<br>Entrer un mot de passe &nbsp &nbsp <input  required type = 'password' name = 'mdp' placeholder='mot de passe ...'> </input>	</br>
 				<br><input type= 'submit' value= 'Connexion' > </input><br>";
 				 if(isset($_SESSION['idEtab'])){ echo '<b>'.$_SESSION['nom'] .'</b>
-				vous êtes deja connecté vous allez être automatiquement redirigé à l\'acceuil' ; header('Refresh:3;EspaceEtablissement.php'); }  
+				vous êtes deja connecté vous allez être automatiquement redirigé à l\'acceuil' ; header('Refresh:0;EspaceEtablissement.php'); }  
 				if (isset($erreur)){ echo '!!! = '. $erreur ; } 
 				echo "<br> Vous êtes un nouvel etablissement et vous n'avez pas encore de mot de passe ? 
 				Cliquez <b>&rArr;</b> <a href='InscriptionEtablissement.php'>ici </a> </center>

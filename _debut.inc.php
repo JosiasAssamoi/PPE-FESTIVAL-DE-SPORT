@@ -19,7 +19,7 @@
       <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
         <ul class="navbar-nav">
           <li class="nav-item active">
-            <a class="nav-link" href="index.php">Festival Sportive du Monde<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="index.php">Festival Sportif du Monde<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="listeEtablissements.php">Gestion Etablissement<span class="sr-only">(current)</span></a>

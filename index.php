@@ -35,7 +35,7 @@ echo " <br>
 <table width='80%' cellspacing='0' cellpadding='0' align='center'>
    <tr>  
       <td class='texteAccueil'>
-         Cette application web permet de gérer l'hébergement des groupes de musique 
+         <center>Cette application web permet de gérer l'hébergement des groupes de musique 
          durant le festival Folklores du Monde.
       </td>
    </tr>
@@ -58,7 +58,7 @@ echo " <br>
          <li>Gérer les établissements (caractéristiques et capacités d'accueil) acceptant d'héberger les groupes de musiciens.
          <p>
 	      </p>
-         <li>Consulter, réaliser ou modifier les attributions des chambres aux groupes dans les établissements.
+         <li>Consulter, réaliser ou modifier les attributions des chambres aux groupes dans les établissements.</center>
       </ul>
       </td>
    </tr>
