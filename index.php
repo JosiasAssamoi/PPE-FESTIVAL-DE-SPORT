@@ -23,7 +23,6 @@ if (!selectBase($connexion))
 }
 $Checkip =VerifIp($connexion); 
 if(!$Checkip){
-	echo  'dedans';
     header('Location: ConnexionEtablissement.php');
     exit(); 
 }

@@ -47,4 +47,9 @@
   <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
+<?php 
+// si on est connecté on met le lien de deconnexion et on affiche un msg de bienvenue 
+if(isset($_SESSION['nom'])) echo '<h4 align = "center" ><p> Bienvenue : '.$_SESSION['nom'].'  - <a href="deconnexion.php">Deconnexion</a></p></h4> '; 
+
+?>
 

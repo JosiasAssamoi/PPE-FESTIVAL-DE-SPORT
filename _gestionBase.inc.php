@@ -36,7 +36,7 @@ function  VerifIp($connexion)
 	$result=$check->fetch();
 	
 	if(!empty($result))
-		return 0;
+		return 1;
 	else 
 		return 0 ;
 	

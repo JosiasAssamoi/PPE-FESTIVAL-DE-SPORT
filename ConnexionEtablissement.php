@@ -1,8 +1,6 @@
 <?php
 
 session_start();
-//session_unset();
-//session_destroy(); 
 include "_debut.inc.php";
 
 include("_gestionBase.inc.php");
@@ -58,7 +56,7 @@ echo " <br>
 				<br>Entrer un mot de passe &nbsp &nbsp <input  required type = 'password' name = 'mdp' placeholder='mot de passe ...'> </input>	</br>
 				<br><input type= 'submit' value= 'Connexion' > </input><br>";
 				 if(isset($_SESSION['idEtab'])){ echo '<b>'.$_SESSION['nom'] .'</b>
-				vous êtes deja connecté vous allez être automatiquement redirigé à l\'acceuil' ; header('Refresh:3;index.php'); }  
+				vous êtes deja connecté vous allez être automatiquement redirigé à l\'acceuil' ; header('Refresh:3;EspaceEtablissement.php'); }  
 				if (isset($erreur)){ echo '!!! = '. $erreur ; } 
 				echo "<br> Vous êtes un nouvel etablissement et vous n'avez pas encore de mot de passe ? 
 				Cliquez <b>&rArr;</b> <a href='InscriptionEtablissement.php'>ici </a> </center>

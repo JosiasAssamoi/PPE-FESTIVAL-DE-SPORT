@@ -25,7 +25,7 @@ if (!selectBase($connexion))
 
 if ( isset($_POST['action']) )
 {	// on recupere la ligne qui correspond a la response du formulaire si elle existe 
-	$sql=$connexion->prepare("Select nom,adresseElectronique from Etablissement where nom=? and adresseElectronique=?");
+	$sql=$connexion->prepare("Select nom,adresseElectronique,id from Etablissement where nom=? and adresseElectronique=?");
 	$sql->execute(array($_POST['nom'],$_POST['email']));
 	$etab=$sql->fetch();
 	
@@ -44,8 +44,7 @@ if ( isset($_POST['action']) )
 			<body>
 				
 					Bonjour <i> <b>'.$etab['nom'].'</i> </b>, <br> <br>
-					<br> 
-					Voici votre nouveau mot de passe : <b>'.$newMdp.'</b>
+					Voici votre nouveau mot de passe : <b>'.$newMdp.'</b><br>Nous vous rappelons votre id : <b>'.$etab['id'].'</b><br>
 					<br><br>N\'hesitez pas à nous contacter en cas de besoin
 					<br />
 					<img src="http://sportifsdelorraine.com/img/logo.png"/>
@@ -60,7 +59,8 @@ if ( isset($_POST['action']) )
 		// si le mail est parti on modifie le mdp dans la base de donnees de l'etablissement en question
 			$sql=$connexion->prepare("Update Etablissement SET motDePasse =? where nom=?");
 			$sql->execute(array($newMdp,$_POST['nom']));
-			$_SESSION['email']=$mail;
+			$_SESSION['emailverif']=$mail;
+			$_SESSION['email']=$etab['adresseElectronique'];
 		}
 	}
 
@@ -76,8 +76,9 @@ echo " <br>
    class='tabNonQuadrille'>
     <input type='hidden' value='validerDemandeMdp' name='action'>
       <tr class='enTeteTabNonQuad'>";
-				if (ISSET($_SESSION['email'])){
-				if($_SESSION['email']==1){ echo "<b> Felicitations vous avez reinitialisé votre mdp un mail vous a été envoyé. </b><br>";}}
+				if (ISSET($_SESSION['emailverif'])){
+				if($_SESSION['emailverif']==1){ echo "<b> Felicitations vous avez reinitialisé votre mdp un mail a eté envoyé à l'adresse suivante : ".$_SESSION['email']." </b><br>";
+				}session_unset(); session_destroy();}
 				echo "
 				<br>Entrer le nom de votre etablissement  <input  required type = 'texte' name = 'nom' placeholder='votre identifiant...'> </input>	</br>
 				<br>Entrer votre email  <input  required type = 'email' name = 'email' placeholder=' votre email..'> </input>	</br>
