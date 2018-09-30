@@ -1,9 +1,13 @@
 <?php
 
+session_start();
+//session_unset();
+//session_destroy(); 
 include "_debut.inc.php";
 
 include("_gestionBase.inc.php");
 include("_controlesEtGestionErreurs.inc.php");
+
 
 // CONNEXION AU SERVEUR MYSQL PUIS SÉLECTION DE LA BASE DE DONNÉES festival
 
@@ -20,6 +24,29 @@ if (!selectBase($connexion))
    afficherErreurs();
    exit();
 }
+$utf8=$connexion->query('SET NAMES UTF8');
+
+		
+if(isset($_POST['id']) AND isset($_POST['mdp']))
+{
+	$connexion = new connexionEtab ($_POST['id'],$_POST['mdp']);
+	$check = $connexion->check();
+	if($check=='nickel')
+	{
+		if($connexion->session()) 
+		{
+			header('location:index.php');
+		}
+		else 
+		{
+			echo 'il y a eu un pb de connexion' ; 
+		} 
+	}
+	else
+	{
+		$erreur = $check;
+	}
+}
 
 	
 echo " <br> 
@@ -27,10 +54,13 @@ echo " <br>
    <tr>  
       <td class='texteAccueil'>
         <form method = 'post' action 'connexion.php' ><center>
-				<br>&nbsp &nbsp &nbsp Entrer Votre identifiant  <input  required type = 'text' name = 'pseudo' placeholder='Votre id...'> </input>	</br>
+				<br>&nbsp &nbsp &nbsp Entrer Votre identifiant  <input  required type = 'text' name = 'id' placeholder='Votre id...'> </input>	</br>
 				<br>Entrer un mot de passe &nbsp &nbsp <input  required type = 'password' name = 'mdp' placeholder='mot de passe ...'> </input>	</br>
-				<br><input type= 'submit' value= 'Connexion' > </input><br>
-				<br> Vous êtes un nouvel etablissement et vous n'avez pas encore de mot de passe ? 
+				<br><input type= 'submit' value= 'Connexion' > </input><br>";
+				 if(isset($_SESSION['idEtab'])){ echo '<b>'.$_SESSION['nom'] .'</b>
+				vous êtes deja connecté vous allez être automatiquement redirigé à l\'acceuil' ; header('Refresh:3;index.php'); }  
+				if (isset($erreur)){ echo '!!! = '. $erreur ; } 
+				echo "<br> Vous êtes un nouvel etablissement et vous n'avez pas encore de mot de passe ? 
 				Cliquez <b>&rArr;</b> <a href='InscriptionEtablissement.php'>ici </a> </center>
 			
 			</form>

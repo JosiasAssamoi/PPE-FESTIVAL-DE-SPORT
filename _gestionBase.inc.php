@@ -36,11 +36,62 @@ function  VerifIp($connexion)
 	$result=$check->fetch();
 	
 	if(!empty($result))
-		return 0 ;
+		return 0;
 	else 
 		return 0 ;
 	
 	
+}
+
+
+// PETITE CLASSE POUR LA CONNEXION 
+
+class connexionEtab 
+{
+	private $idEtab;
+	private $mdp;
+	private $connexion; 
+	
+	
+	public function __construct ($idEtab,$mdp)  
+
+	{ 
+	$connexion=connect();
+	$connexion=selectBase($connexion);
+		$this->idEtab = $idEtab;
+		$this->mdp = $mdp;
+		$this->connexion = $connexion;
+	}
+	public function check ()
+	{
+		$requete = $this->connexion->prepare('SELECT * FROM Etablissement WHERE id= :idEtab AND motDePasse= :mdp ');
+		$requete->execute(array( 
+		'idEtab' => $this->idEtab,
+		'mdp' => $this->mdp ));
+		$trouve = $requete->fetch();
+		if($trouve)
+		{
+			if($trouve['motDePasse'] == $this->mdp AND $trouve['id']==$this->idEtab )
+			{
+			return 'nickel' ; 
+			}
+		}
+		else 
+		{
+		 $erreur = 'Identifiant ou mot de passe erronné' ;
+		 return $erreur;
+		}
+	}
+	public function session() 
+	{	
+		$requete = $this->connexion->prepare('SELECT id,nom FROM Etablissement WHERE id = :idEtab ');
+        $requete->execute(array('idEtab'=>  $this->idEtab));
+        $requete = $requete->fetch();
+        $_SESSION['idEtab'] = $requete['id'];
+		$_SESSION['nom'] = $requete['nom'];
+
+		return 1 ;	
+	}
 }
 
 // FONCTION REINITIALISER MDP 
