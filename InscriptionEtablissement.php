@@ -24,16 +24,16 @@ if (!selectBase($connexion))
 }
 
 if ( isset($_POST['action']) )
-{	// on recupere la ligne qui correspond a la response du formulaire si elle existe 
+{	// on recupere la ligne qui correspond a la response du formulaire si elle existe
 	$sql=$connexion->prepare("Select nom,adresseElectronique,id from Etablissement where nom=? and adresseElectronique=?");
 	$sql->execute(array($_POST['nom'],$_POST['email']));
 	$etab=$sql->fetch();
-	
 
-	// si oui on lui envoit un nouveau mdp 
-	if ( isset($etab['nom']) && isset($etab['adresseElectronique'])) 
-	{	
-		$newMdp=createPassword(10);	
+
+	// si oui on lui envoit un nouveau mdp
+	if ( isset($etab['nom']) && isset($etab['adresseElectronique']))
+	{
+		$newMdp=createPassword(10);
 		$header="MIME-Version: 1.0\r\n";
 		$header.='From:"Maison Des ligues"<support@maisondesligue.com>'."\n";
 		$header.='Content-Type:text/html; charset="uft-8"'."\n";
@@ -42,9 +42,10 @@ if ( isset($_POST['action']) )
 		$message='
 		<html>
 			<body>
-				
+
 					Bonjour <i> <b>'.$etab['nom'].'</i> </b>, <br> <br>
-					Voici votre nouveau mot de passe : <b>'.$newMdp.'</b><br>Nous vous rappelons votre id : <b>'.$etab['id'].'</b><br>
+					<br>Nous vous rappelons votre id : <b>'.$etab['id'].'</b><br>
+          Voici votre nouveau mot de passe : <b>'.$newMdp.'</b>
 					<br><br>N\'hesitez pas à nous contacter en cas de besoin
 					<br />
 					<img src="http://sportifsdelorraine.com/img/logo.png"/>
@@ -55,7 +56,7 @@ if ( isset($_POST['action']) )
 
 		$mail=mail($_POST['email'], "Reinitialisation de votre Mot de passe", $message, $header);
 		if($mail)
-		{	
+		{
 		// si le mail est parti on modifie le mdp dans la base de donnees de l'etablissement en question
 			$sql=$connexion->prepare("Update Etablissement SET motDePasse =? where nom=?");
 			$sql->execute(array($newMdp,$_POST['nom']));
@@ -66,13 +67,13 @@ if ( isset($_POST['action']) )
 
 }
 
-	
-echo " <br> 
+
+echo " <br>
 <table width='80%' cellspacing='0' cellpadding='0' align='center'>
-   <tr>  
+   <tr>
       <td class='texteAccueil'>
         <form method = 'post' action = 'InscriptionEtablissement.php' ><center>
-			<table width='85%' cellspacing='0' cellpadding='0' align='center' 
+			<table width='85%' cellspacing='0' cellpadding='0' align='center'
    class='tabNonQuadrille'>
     <input type='hidden' value='validerDemandeMdp' name='action'>
       <tr class='enTeteTabNonQuad'>";
@@ -83,9 +84,9 @@ echo " <br>
 				<br>Entrer le nom de votre etablissement  <input  required type = 'texte' name = 'nom' placeholder='votre identifiant...'> </input>	</br>
 				<br>Entrer votre email  <input  required type = 'email' name = 'email' placeholder=' votre email..'> </input>	</br>
 				<br><input type= 'submit' value= 'Demander un Mot de Passe' > </input><br><i><br>Un nouveau mot de passe vous sera envoyé automatiquement</i>
-				<br> Pour vous connecter ... 
+				<br> Pour vous connecter ...
 				Cliquez <b>&rArr;</b> <a href='ConnexionEtablissement.php'>ici </a> </center>
-			
+
 			</table></form>
 		</div>
       </td>
@@ -94,5 +95,3 @@ echo " <br>
 </table>";
 
 ?>
-
-

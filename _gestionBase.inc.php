@@ -27,35 +27,35 @@ function selectBase($connexion)
    return $connexion;
 }
 
-//FONCTION VERIF ADRESSE IP  
+//FONCTION VERIF ADRESSE IP
 function  VerifIp($connexion)
 {
 	$ip_user=(String)$_SERVER['REMOTE_ADDR'];
 	$check=$connexion->prepare('select numip from Adresseip where numip=?');
 	$check->execute(array($ip_user));
 	$result=$check->fetch();
-	
+
 	if(!empty($result))
-		return 1;
-	else 
+		return 0;
+	else
 		return 0 ;
-	
-	
+
+
 }
 
 
-// PETITE CLASSE POUR LA CONNEXION 
+// PETITE CLASSE POUR LA CONNEXION
 
-class connexionEtab 
+class connexionEtab
 {
 	private $idEtab;
 	private $mdp;
-	private $connexion; 
-	
-	
-	public function __construct ($idEtab,$mdp)  
+	private $connexion;
 
-	{ 
+
+	public function __construct ($idEtab,$mdp)
+
+	{
 	$connexion=connect();
 	$connexion=selectBase($connexion);
 		$this->idEtab = htmlspecialchars($idEtab);
@@ -65,7 +65,7 @@ class connexionEtab
 	public function check ()
 	{
 		$requete = $this->connexion->prepare('SELECT * FROM Etablissement WHERE id= :idEtab AND motDePasse= :mdp ');
-		$requete->execute(array( 
+		$requete->execute(array(
 		'idEtab' => $this->idEtab,
 		'mdp' => $this->mdp ));
 		$trouve = $requete->fetch();
@@ -73,28 +73,28 @@ class connexionEtab
 		{
 			if($trouve['motDePasse'] == $this->mdp AND $trouve['id']==$this->idEtab )
 			{
-			return 'nickel' ; 
+			return 'nickel' ;
 			}
 		}
-		else 
+		else
 		{
 		 $erreur = 'Identifiant ou mot de passe erronné' ;
 		 return $erreur;
 		}
 	}
-	public function session() 
-	{	
+	public function session()
+	{
 		$requete = $this->connexion->prepare('SELECT id,nom FROM Etablissement WHERE id = :idEtab ');
         $requete->execute(array('idEtab'=>  $this->idEtab));
         $requete = $requete->fetch();
         $_SESSION['idEtab'] = $requete['id'];
 		$_SESSION['nom'] = $requete['nom'];
 
-		return 1 ;	
+		return 1 ;
 	}
 }
 
-// FONCTION REINITIALISER MDP 
+// FONCTION REINITIALISER MDP
 
  function createPassword($nbCaractere)
     {
@@ -104,7 +104,7 @@ class connexionEtab
             $random = rand(97,122);
             $password .= chr($random);
         }
- 
+
         return $password;
     }
 
@@ -113,12 +113,12 @@ class connexionEtab
 
 function ModifConventionSignee($connexion, $idEtab)
 {
-	
+
    $req="Update Etablissement  set conventionSignee = 1 where id= ?";
    $conv=$connexion->prepare($req);
-   
+
    $conv->execute(array($idEtab));
-  
+
 }
 
 function obtenirReqEtablissements()
@@ -147,7 +147,7 @@ function Hebergementvalidés($connexion,$id)
    $rsEtab->execute(array($id));
    $rsEtab=$rsEtab->fetch();
    return $rsEtab;
-   
+
 }
 
 function obtenirDetailEtablissement($connexion, $id)

@@ -20,20 +20,19 @@ if (!selectBase($connexion))
    exit();
 }
 
-
-
-
 // MODIFIER UN ÉTABLISSEMENT
 
 // Déclaration du tableau des civilités
 $tabCivilite=array("M.","Mme","Melle");
 
-$id=$_SESSION['idEtab'];
+$action=$_REQUEST['action'];
+$id=$_REQUEST['id'];
 
 // Si on ne "vient" pas de ce formulaire, il faut récupérer les données à partir
 // de la base (en appelant la fonction obtenirDetailEtablissement) sinon on
-// affiche les valeurs de session
-
+// affiche les valeurs précédemment contenues dans le formulaire
+if ($action=='demanderModifEtab')
+{
    $lgEtab=obtenirDetailEtablissement($connexion, $id);
 
    $nom=$lgEtab['nom'];
@@ -48,8 +47,21 @@ $id=$_SESSION['idEtab'];
    $prenomResponsable=$lgEtab['prenomResponsable'];
    $nombreChambresOffertes=$lgEtab['nombreChambresOffertes'];
    $infosPratiques=$lgEtab['informationsPratiques'];
-
-
+}
+else
+{
+   $nom=htmlspecialchars($_REQUEST['nom']);
+   $adresseRue=htmlspecialchars($_REQUEST['adresseRue']);
+   $codePostal=htmlspecialchars($_REQUEST['codePostal']);
+   $ville=htmlspecialchars($_REQUEST['ville']);
+   $tel=htmlspecialchars($_REQUEST['tel']);
+   $adresseElectronique=htmlspecialchars($_REQUEST['adresseElectronique']);
+   $type=htmlspecialchars($_REQUEST['type']);
+   $civiliteResponsable=htmlspecialchars($_REQUEST['civiliteResponsable']);
+   $nomResponsable=htmlspecialchars($_REQUEST['nomResponsable']);
+   $prenomResponsable=htmlspecialchars($_REQUEST['prenomResponsable']);
+   $nombreChambresOffertes=htmlspecialchars($_REQUEST['nombreChambresOffertes']);
+   $infosPratiques=htmlspecialchars($_REQUEST['informatationsPratiques']);
 
    verifierDonneesEtabM($connexion, $id, $nom, $adresseRue, $codePostal, $ville,
                         $tel, $nomResponsable, $nombreChambresOffertes,$infosPratiques);
@@ -59,7 +71,7 @@ $id=$_SESSION['idEtab'];
                             $tel, $adresseElectronique, $type, $civiliteResponsable,
                             $nomResponsable, $prenomResponsable, $nombreChambresOffertes,$infosPratiques);
    }
-
+}
 
 echo "
 <form method='POST' action='modificationEtablissementConnecte.php?'>
@@ -68,13 +80,7 @@ echo "
    class='tabNonQuadrille'>
 
       <tr class='enTeteTabNonQuad'>
-
-         <td colspan='3'>
-		  <b> Vous pouvez ci dessous modifier vos informations : <br> </b><br>
-		</td>
-      </tr>
-	  <td colspan='3'>
-		 $nom ($id)</td>
+         <td colspan='3'>$nom ($id)</td>
       </tr>
       <tr>
          <td><input type='hidden' value='$id' name='id'></td>
@@ -175,14 +181,13 @@ echo "
          <td align='left'><input type='reset' value='Annuler' name='annuler'>
          </td>
       </tr>
-
    </table>
 
 </form>";
 
 // En cas de validation du formulaire : affichage des erreurs ou du message de
 // confirmation
-if (isset($action) && $action=='validerModifEtab')
+if ($action=='validerModifEtab')
 {
    if (nbErreurs()!=0)
    {
