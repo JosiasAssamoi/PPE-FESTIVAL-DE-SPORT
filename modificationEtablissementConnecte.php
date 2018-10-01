@@ -167,7 +167,7 @@ echo "
             "nombreChambresOffertes" size ="2" maxlength="3"></td>
          </tr>
 		  <tr class="ligneTabNonQuad">
-            <td> Informations pratiques*: </td>
+            <td> Informations pratiques : </td>
             <td><input type="text" value="'.$infosPratiques.'" name=
             "informatationsPratiques" size ="100" ></td>
          </tr><br>
@@ -175,7 +175,7 @@ echo "
 
    echo "
    <table align='center' cellspacing='15' cellpadding='0'>
-      <tr>
+      <tr></br>
          <td align='right'><input type='submit' value='Valider' name='valider'>
          </td>
          <td align='left'><input type='reset' value='Annuler' name='annuler'>
@@ -195,7 +195,7 @@ if ($action=='validerModifEtab')
    }
    else
    {
-      echo "
+      echo "</br>
       <h5><center>La modification de l'établissement a été effectuée</center></h5>";
    }
 }

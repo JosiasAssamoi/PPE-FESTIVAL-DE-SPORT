@@ -1,61 +1,57 @@
 ﻿
 
-- Annexes : Ajouter drapeau pour les pays ( consultations attributions ) , Couleur theme menu en blanc si 
+- Annexes : Ajouter drapeau pour les pays ( consultations attributions ) , Couleur theme menu en blanc si
 on trouve de quoi remplir le corps de la page (trop vide), Simuler des conventions signée .  crypter les mdp ( pas fait )
 
--  eviter les injections html (html specialchars etc) : ( FAIT ) 
+-  eviter les injections html (html specialchars etc) : ( FAIT )
 
 Faire des requetes preparées : ( FAIT)
-htmlentities : Convertit tous les caractères éligibles en entités HTML (FAIT) 
 htmspecialchars : Convertit tous les caractères speciaux en entités HTML (FAIT)
 
-- Il a donc été choisi de conserver l’application intranet telle quelle et de créer une application web à 
-destination des établissements ; bien sûr, cette application sera très voisine de l’application intranet 
-mais avec des droits restreints. ( FAIT ) 
+- Il a donc été choisi de conserver l’application intranet telle quelle et de créer une application web à
+destination des établissements ; bien sûr, cette application sera très voisine de l’application intranet
+mais avec des droits restreints. ( FAIT )
 
-- L’application actuelle ne fournit pas le pays d’origine des groupes et qu’elle 
-doit consulter la base pour obtenir cette information ( deja fait ) 
+- L’application actuelle ne fournit pas le pays d’origine des groupes et qu’elle
+doit consulter la base pour obtenir cette information (FAIT)
 
-- Ajouter dans le menu liste groupe et y rajouter toutes les caractéristiques des groupes. (A faire)
+- Ajouter dans le menu liste groupe et y rajouter toutes les caractéristiques des équipes. (FAIT)
 
-
-
--Le document remis pour l’hébergement mériterait d’être complété d’informations pratiques 
+-Le document remis pour l’hébergement mériterait d’être complété d’informations pratiques
 (numéro de téléphone à composer en cas de problème, horaires pour le petit déjeuner, etc.). (FAIT )
 
+Le site intranet de la mairie va donc offrir un service destiné aux établissements ; il s’ouvre ainsi
+à ses partenaires et peut être désormais qualifié d'extranet :
 
-Le site intranet de la mairie va donc offrir un service destiné aux établissements ; il s’ouvre ainsi 
-à ses partenaires et peut être désormais qualifié d'extranet : 
-
--  Creer application web, permettant la saisie des capacités d’hébergement. 
-En outre, cette application permettra à l’établissement de fournir des informations pratiques qui figureront 
+-  Creer application web, permettant la saisie des capacités d’hébergement.
+En outre, cette application permettra à l’établissement de fournir des informations pratiques qui figureront
 sur la feuille personnalisée remise à chaque groupe par la Maison des Associations.
-La Maison des Associations garde la maîtrise de l’affectation des groupes. (FAIT) 
+La Maison des Associations garde la maîtrise de l’affectation des groupes. (FAIT)
 
-- Une fois la répartition des groupes effectuée, l'établissement pourra imprimer une feuille 
-récapitulative précisant le nombre de chambres attribuées à chaque groupe hébergé. Ainsi, 
-l’établissement pourra disposer d’une liste le moment venu. ( fait ) 
+- Une fois la répartition des groupes effectuée, l'établissement pourra imprimer une feuille
+récapitulative précisant le nombre de chambres attribuées à chaque groupe hébergé. Ainsi,
+l’établissement pourra disposer d’une liste le moment venu. (FAIT)
 
 
 L’application intranet reste inchangée à l’exception :
-	de l’ajout des champs motDePasse, informationsPratiques et conventionSignée dans les interfaces de 
+	de l’ajout des champs motDePasse, informationsPratiques et conventionSignée dans les interfaces de
 	gestion des établissements ; (FAIT)
 	-des interfaces relatives à l’attribution des chambres qui intègrent uniquement les établissements
-	 ayant signé la convention ; (FAIT) 
+	 ayant signé la convention ; (FAIT)
 	de la possibilité d’obtenir la liste détaillée des groupes.
 
 - Ajouter la table Adresse Ip (FAIT)
--changer la table groupe en table equipe et toutes les requetes groupes en requete "equipe" (pas fait)
+-changer la table groupe en table equipe et toutes les requetes groupes en requete "equipe" (FAIT)
 
-ALTER TABLE `etablissement` ADD `motDePasse` VARCHAR(50) NOT NULL AFTER `nombreChambresOffertes`, ADD `informationsPratiques` VARCHAR(100) NOT NULL AFTER `motDePasse`, ADD `conventionSignée` BOOLEAN NOT NULL DEFAULT FALSE AFTER `informationsPratiques`; 
+ALTER TABLE `etablissement` ADD `motDePasse` VARCHAR(50) NOT NULL AFTER `nombreChambresOffertes`, ADD `informationsPratiques` VARCHAR(100) NOT NULL AFTER `motDePasse`, ADD `conventionSignée` BOOLEAN NOT NULL DEFAULT FALSE AFTER `informationsPratiques`;
 
 CREATE TABLE `festival`.`Adresseip` ( `numip` VARCHAR(20) NOT NULL ) ENGINE = InnoDB;
 ALTER TABLE `adresseip` ADD PRIMARY KEY(`numip`)
 
 - Il reste la page de connexion a faire et liste groupe et la page inscription et la page de saisie des capacités
-et des infos pour chaque etablissement apres la connexion de chaque etablissement 
+et des infos pour chaque etablissement apres la connexion de chaque etablissement
 
-Pour recevoir mail avec mdp configurer le php ini  [mail function] : 
+Pour recevoir mail avec mdp configurer le php ini  [mail function] :
 
 ; For Win32 only.
 ; http://php.net/smtp

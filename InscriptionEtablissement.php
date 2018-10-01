@@ -81,8 +81,8 @@ echo " <br>
 				if($_SESSION['emailverif']==1){ echo "<b> Felicitations vous avez reinitialisé votre mdp un mail a eté envoyé à l'adresse suivante : ".$_SESSION['email']." </b><br>";
 				}session_unset(); session_destroy();}
 				echo "
-				<br>Entrer le nom de votre etablissement  <input  required type = 'texte' name = 'nom' placeholder='votre identifiant...'> </input>	</br>
-				<br>Entrer votre email  <input  required type = 'email' name = 'email' placeholder=' votre email..'> </input>	</br>
+				<br>Entrer le nom de votre etablissement &nbsp &nbsp<input  required type = 'texte' name = 'nom' placeholder='Votre identifiant ...'> </input>	</br>
+				<br>Entrer votre email &nbsp &nbsp <input  required type = 'email' name = 'email' placeholder='Votre email ...'> </input>	</br>
 				<br><input type= 'submit' value= 'Demander un Mot de Passe' > </input><br><i><br>Un nouveau mot de passe vous sera envoyé automatiquement</i>
 				<br> Pour vous connecter ...
 				Cliquez <b>&rArr;</b> <a href='ConnexionEtablissement.php'>ici </a> </center>

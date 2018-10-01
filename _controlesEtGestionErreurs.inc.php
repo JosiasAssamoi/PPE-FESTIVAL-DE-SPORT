@@ -2,7 +2,7 @@
 
 // FONCTIONS DE CONTRÔLE DE SAISIE
 
-// Si $codePostal a une longueur de 5 caractères et est de type entier, on 
+// Si $codePostal a une longueur de 5 caractères et est de type entier, on
 // considère qu'il s'agit d'un code postal
 function estUnCp($codePostal)
 {
@@ -10,27 +10,27 @@ function estUnCp($codePostal)
    return strlen($codePostal)== 5 && estEntier($codePostal);
 }
 
-// Si la valeur transmise ne contient pas d'autres caractères que des chiffres, 
+// Si la valeur transmise ne contient pas d'autres caractères que des chiffres,
 // la fonction retourne vrai
 function estEntier($valeur)
 {
    return !preg_match("[^0-9]", $valeur);
 }
 
-// Si la valeur transmise ne contient pas d'autres caractères que des chiffres  
+// Si la valeur transmise ne contient pas d'autres caractères que des chiffres
 // et des lettres non accentuées, la fonction retourne vrai
 function estChiffresOuEtLettres($valeur)
 {
    return !preg_match("[^a-zA-Z0-9]", $valeur);
 }
 
-// Fonction qui vérifie la saisie lors de la modification d'un établissement. 
+// Fonction qui vérifie la saisie lors de la modification d'un établissement.
 // Pour chaque champ non valide, un message est ajouté à la liste des erreurs
-function verifierDonneesEtabM($connexion, $id, $nom, $adresseRue, $codePostal, 
-                              $ville, $tel, $nomResponsable, $nombreChambresOffertes,$infosPratiques)
+function verifierDonneesEtabM($connexion, $id, $nom, $adresseRue, $codePostal,
+                              $ville, $tel, $nomResponsable, $nombreChambresOffertes)
 {
-   if ($nom=="" || $adresseRue=="" || $codePostal=="" || $ville=="" || 
-       $tel=="" || $nomResponsable=="" || $nombreChambresOffertes=="" || $infosPratiques=="")
+   if ($nom=="" || $adresseRue=="" || $codePostal=="" || $ville=="" ||
+       $tel=="" || $nomResponsable=="" || $nombreChambresOffertes=="")
    {
       ajouterErreur("Chaque champ suivi du caractère * est obligatoire");
    }
@@ -40,7 +40,7 @@ function verifierDonneesEtabM($connexion, $id, $nom, $adresseRue, $codePostal,
    }
    if ($codePostal!="" && !estUnCp($codePostal))
    {
-      ajouterErreur("Le code postal doit comporter 5 chiffres");   
+      ajouterErreur("Le code postal doit comporter 5 chiffres");
    }
    if ($nombreChambresOffertes!="" && (!estEntier($nombreChambresOffertes) ||
        !estModifOffreCorrecte($connexion, $id, $nombreChambresOffertes)))
@@ -50,9 +50,9 @@ function verifierDonneesEtabM($connexion, $id, $nom, $adresseRue, $codePostal,
    }
 }
 
-// Fonction qui vérifie la saisie lors de la création d'un établissement. 
+// Fonction qui vérifie la saisie lors de la création d'un établissement.
 // Pour chaque champ non valide, un message est ajouté à la liste des erreurs
-function verifierDonneesEtabC($connexion, $id, $nom, $adresseRue, $codePostal, 
+function verifierDonneesEtabC($connexion, $id, $nom, $adresseRue, $codePostal,
                               $ville, $tel, $nomResponsable, $nombreChambresOffertes,$infosPratique)
 {
    if ($id=="" || $nom=="" || $adresseRue=="" || $codePostal=="" || $ville==""
@@ -62,7 +62,7 @@ function verifierDonneesEtabC($connexion, $id, $nom, $adresseRue, $codePostal,
    }
    if($id!="")
    {
-      // Si l'id est constitué d'autres caractères que de lettres non accentuées 
+      // Si l'id est constitué d'autres caractères que de lettres non accentuées
       // et de chiffres, une erreur est générée
       if (!estChiffresOuEtLettres($id))
       {
@@ -83,9 +83,9 @@ function verifierDonneesEtabC($connexion, $id, $nom, $adresseRue, $codePostal,
    }
    if ($codePostal!="" && !estUnCp($codePostal))
    {
-      ajouterErreur("Le code postal doit comporter 5 chiffres");   
+      ajouterErreur("Le code postal doit comporter 5 chiffres");
    }
-   if ($nombreChambresOffertes!="" && !estEntier($nombreChambresOffertes)) 
+   if ($nombreChambresOffertes!="" && !estEntier($nombreChambresOffertes))
    {
       ajouterErreur ("La valeur de l'offre doit être un entier");
    }
@@ -111,7 +111,7 @@ function nbErreurs()
 	   return count($_REQUEST['erreurs']);
 	}
 }
- 
+
 function afficherErreurs()
 {
    echo '<div class="msgErreur">';
@@ -122,6 +122,6 @@ function afficherErreurs()
 	}
    echo '</ul>';
    echo '</div>';
-} 
+}
 
 ?>

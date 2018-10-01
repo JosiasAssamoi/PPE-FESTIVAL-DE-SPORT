@@ -1,7 +1,7 @@
 <?php
 session_start();
 include("_debut.inc.php");
-include("_gestionBase.inc.php"); 
+include("_gestionBase.inc.php");
 include("_controlesEtGestionErreurs.inc.php");
 
 // CONNEXION AU SERVEUR MYSQL PUIS SÉLECTION DE LA BASE DE DONNÉES festival
@@ -20,18 +20,18 @@ if (!selectBase($connexion))
    exit();
 }
 
-// CRÉER UN ÉTABLISSEMENT 
+// CRÉER UN ÉTABLISSEMENT
 
 // Déclaration du tableau des civilités
-$tabCivilite=array("M.","Mme","Melle");  
+$tabCivilite=array("M.","Mme","Melle");
 
 $action=$_REQUEST['action'];
 
-// S'il s'agit d'une création et qu'on ne "vient" pas de ce formulaire (on 
-// "vient" de ce formulaire uniquement s'il y avait une erreur), il faut définir 
+// S'il s'agit d'une création et qu'on ne "vient" pas de ce formulaire (on
+// "vient" de ce formulaire uniquement s'il y avait une erreur), il faut définir
 // les champs à vide sinon on affichera les valeurs précédemment saisies
-if ($action=='demanderCreEtab') 
-{  
+if ($action=='demanderCreEtab')
+{
    $id='';
    $nom='';
    $adresseRue='';
@@ -48,8 +48,8 @@ if ($action=='demanderCreEtab')
 }
 else
 {
-   $id=htmlspecialchars($_REQUEST['id']); 
-   $nom=htmlspecialchars($_REQUEST['nom']); 
+   $id=htmlspecialchars($_REQUEST['id']);
+   $nom=htmlspecialchars($_REQUEST['nom']);
    $adresseRue=htmlspecialchars($_REQUEST['adresseRue']);
    $codePostal=htmlspecialchars($_REQUEST['codePostal']);
    $ville=htmlspecialchars($_REQUEST['ville']);
@@ -62,55 +62,55 @@ else
    $nombreChambresOffertes=htmlspecialchars($_REQUEST['nombreChambresOffertes']);
    $infosPratiques=htmlspecialchars($_REQUEST['informationsPratiques']);
 
-   verifierDonneesEtabC($connexion, $id, $nom, $adresseRue, $codePostal, $ville, 
-                        $tel, $nomResponsable, $nombreChambresOffertes,$infosPratiques);      
+   verifierDonneesEtabC($connexion, $id, $nom, $adresseRue, $codePostal, $ville,
+                        $tel, $nomResponsable, $nombreChambresOffertes,$infosPratiques);
    if (nbErreurs()==0)
-   {        
-      creerEtablissement($connexion, $id, $nom, $adresseRue, $codePostal, $ville,  
-                         $tel, $adresseElectronique, $type, $civiliteResponsable, 
+   {
+      creerEtablissement($connexion, $id, $nom, $adresseRue, $codePostal, $ville,
+                         $tel, $adresseElectronique, $type, $civiliteResponsable,
                          $nomResponsable, $prenomResponsable, $nombreChambresOffertes,$infosPratiques);
    }
 }
 
-echo "
+echo "</br>
 <form method='POST' action='creationEtablissement.php?'>
    <input type='hidden' value='validerCreEtab' name='action'>
-   <table width='85%' align='center' cellspacing='0' cellpadding='0' 
+   <table width='85%' align='center' cellspacing='0' cellpadding='0'
    class='tabNonQuadrille'>
-   
+
       <tr class='enTeteTabNonQuad'>
          <td colspan='3'>Nouvel établissement</td>
       </tr>
       <tr class='ligneTabNonQuad'>
          <td> Id*: </td>
-         <td><input type='text' value='$id' name='id' size ='10' 
+         <td><input type='text' value='$id' name='id' size ='10'
          maxlength='8'></td>
       </tr>";
-     
+
       echo '
       <tr class="ligneTabNonQuad">
          <td> Nom*: </td>
-         <td><input type="text" value="'.$nom.'" name="nom" size="50" 
+         <td><input type="text" value="'.$nom.'" name="nom" size="50"
          maxlength="45"></td>
       </tr>
       <tr class="ligneTabNonQuad">
          <td> Adresse*: </td>
-         <td><input type="text" value="'.$adresseRue.'" name="adresseRue" 
+         <td><input type="text" value="'.$adresseRue.'" name="adresseRue"
          size="50" maxlength="45"></td>
       </tr>
       <tr class="ligneTabNonQuad">
          <td> Code postal*: </td>
-         <td><input type="text" value="'.$codePostal.'" name="codePostal" 
+         <td><input type="text" value="'.$codePostal.'" name="codePostal"
          size="4" maxlength="5"></td>
       </tr>
       <tr class="ligneTabNonQuad">
          <td> Ville*: </td>
-         <td><input type="text" value="'.$ville.'" name="ville" size="40" 
+         <td><input type="text" value="'.$ville.'" name="ville" size="40"
          maxlength="35"></td>
       </tr>
       <tr class="ligneTabNonQuad">
          <td> Téléphone*: </td>
-         <td><input type="text" value="'.$tel.'" name="tel" size ="20" 
+         <td><input type="text" value="'.$tel.'" name="tel" size ="20"
          maxlength="10"></td>
       </tr>
       <tr class="ligneTabNonQuad">
@@ -123,21 +123,21 @@ echo "
          <td>';
             if ($type==1)
             {
-               echo " 
-               <input type='radio' name='type' value='1' checked>  
+               echo "
+               <input type='radio' name='type' value='1' checked>
                Etablissement Sportif
                <input type='radio' name='type' value='0'>  Autre";
              }
              else
              {
-                echo " 
-                <input type='radio' name='type' value='1'> 
+                echo "
+                <input type='radio' name='type' value='1'>
                 Etablissement Sportif
                 <input type='radio' name='type' value='0' checked> Autre";
               }
 			  echo '<tr class="ligneTabNonQuad">
          <td> Informations pratiques*: </td>
-         <td><input type="textarea" size = 100 value="'.$infosPratiques.'" name="informationsPratiques" 
+         <td><input type="textarea" size = 100 value="'.$infosPratiques.'" name="informationsPratiques"
           ></td>';
            echo "
            </td>
@@ -149,7 +149,7 @@ echo "
             <td> Civilité*: </td>
             <td> <select name='civiliteResponsable'>";
                for ($i=0; $i<3; $i=$i+1)
-                  if ($tabCivilite[$i]==$civiliteResponsable) 
+                  if ($tabCivilite[$i]==$civiliteResponsable)
                   {
                      echo "<option selected>$tabCivilite[$i]</option>";
                   }
@@ -158,10 +158,10 @@ echo "
                      echo "<option>$tabCivilite[$i]</option>";
                   }
                echo '
-               </select>&nbsp; &nbsp; &nbsp; &nbsp; Nom*: 
+               </select>&nbsp; &nbsp; &nbsp; &nbsp; Nom*:
                <input type="text" value="'.$nomResponsable.'" name=
                "nomResponsable" size="26" maxlength="25">
-               &nbsp; &nbsp; &nbsp; &nbsp; Prénom: 
+               &nbsp; &nbsp; &nbsp; &nbsp; Prénom:
                <input type="text"  value="'.$prenomResponsable.'" name=
                "prenomResponsable" size="26" maxlength="25">
             </td>
@@ -172,7 +172,7 @@ echo "
             "nombreChambresOffertes" size ="2" maxlength="3"></td>
          </tr>
    </table>';
-   
+
    echo "
    <table align='center' cellspacing='15' cellpadding='0'>
       <tr>
@@ -188,7 +188,7 @@ echo "
    </table>
 </form>";
 
-// En cas de validation du formulaire : affichage des erreurs ou du message de 
+// En cas de validation du formulaire : affichage des erreurs ou du message de
 // confirmation
 if ($action=='validerCreEtab')
 {

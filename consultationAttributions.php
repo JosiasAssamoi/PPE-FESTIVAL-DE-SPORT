@@ -19,12 +19,12 @@ if (!selectBase($connexion))
    afficherErreurs();
    exit();
 }
-// VERIF IP 
-$Checkip =VerifIp($connexion); 
+// VERIF IP
+$Checkip =VerifIp($connexion);
 if(!$Checkip){
 	echo  'dedans';
     header('Location: ConnexionEtablissement.php');
-    exit(); 
+    exit();
 }
 
 
@@ -35,7 +35,7 @@ if(!$Checkip){
 $nbEtab=obtenirNbEtabOffrantChambres($connexion);
 if ($nbEtab!=0)
 {
-   echo "
+   echo "</br>
    <table width='75%' cellspacing='0' cellpadding='0' align='center'
    <tr><td>
    <a href='modificationAttributions.php?action=demanderModifAttrib'>
@@ -105,7 +105,7 @@ if ($nbEtab!=0)
 
          echo "
          <tr class='ligneTabQuad'>
-            <td width='65%' align='left'>$nomGroupe <b>($paysGroupe)</b><br> 
+            <td width='65%' align='left'>$nomGroupe <b>($paysGroupe)</b><br>
 			</td> ";
          // On recherche si des chambres ont déjà été attribuées à ce groupe
          // dans l'établissement
@@ -115,7 +115,7 @@ if ($nbEtab!=0)
          </tr> ";
        //  $lgGroupe=mysql_fetch_array($rsGroupe);
       } // Fin de la boucle sur les groupes
-	
+
       echo "
        <tr class='ligneTabQuad'>  <td width='65%' align='left'>Etat convention</u> : $conventionSignee<br> </tr></td></table> ";
      // $lgEtab=mysql_fetch_array($rsEtab);
