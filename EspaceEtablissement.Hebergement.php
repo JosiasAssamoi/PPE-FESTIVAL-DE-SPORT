@@ -19,13 +19,13 @@ if (!selectBase($connexion))
    afficherErreurs();
    exit();
 }
-// VERIF IP 
-$Checkip =VerifIp($connexion); 
+// VERIF IP
+/*$Checkip =VerifIp($connexion);
 if(!$Checkip){
 	echo  'dedans';
     header('Location: ConnexionEtablissement.php');
-    exit(); 
-}
+    exit();
+}*/
 
 
 // CONSULTER LES ATTRIBUTIONS POUR L' ÉTABLISSEMENT
@@ -39,7 +39,7 @@ if(!$Checkip){
    // D'EN-TÊTE ET LE DÉTAIL DES ATTRIBUTIONS
    $id=$_SESSION['idEtab'];
    $lgEtab=HebergementValidés($connexion,$id);
-   
+
       $idEtab=$lgEtab['id'];
       $nomEtab=$lgEtab['nom'];
 	  if($lgEtab['conventionSignee'] ==0)
@@ -87,14 +87,14 @@ if(!$Checkip){
       $lgGroupe=$rsGroupe->fetchall();
 	  if(empty($lgGroupe)){
 		  echo "<table width='75%' cellspacing='0' cellpadding='0' align='center'>
-   <tr>  
+   <tr>
       <td class='texteAccueil'>
          <br> <i>  Vous n'avez aucune equipes attribuées : <br>Votre convention n'a probablement pas été signée. <BR> Si celle ci a été signée des équipes vous seront très prochainement attribuées
      :) <br></i>  </td>
    </tr>";
 	  }
 	  else{
-		 
+
       // BOUCLE SUR LES GROUPES (CHAQUE GROUPE EST AFFICHÉ EN LIGNE)
      foreach($lgGroupe as $lgGroupe)
       {
@@ -104,7 +104,7 @@ if(!$Checkip){
 
          echo "
          <tr class='ligneTabQuad'>
-            <td width='65%' align='left'>$nomGroupe <b>($paysGroupe)</b><br> 
+            <td width='65%' align='left'>$nomGroupe <b>($paysGroupe)</b><br>
 			</td> ";
          // On recherche si des chambres ont déjà été attribuées à ce groupe
          // dans l'établissement
@@ -117,6 +117,6 @@ if(!$Checkip){
 	  }
       echo "
        <tr class='ligneTabQuad'>  <td width='65%' align='left'> <br>Etat convention</u> : $conventionSignee<br> </tr></td></table> ";
-  
+
 
 ?>
